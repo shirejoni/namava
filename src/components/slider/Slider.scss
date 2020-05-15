@@ -1,0 +1,18 @@
+.slider {
+    min-height: 46.875vw;
+    padding-bottom: 40px;
+    position: relative;
+    z-index: 0;
+    .slider-container {
+        width: 100%;
+        height: 100%;
+        background-image: linear-gradient(to left, rgba(18, 18, 18, 0), rgba(18, 18, 18, 0) 50%), linear-gradient(rgba(18, 18, 18, 0) 10vw, rgb(18, 18, 18) 46.875vw),
+        url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOTIwIiBoZWlnaHQ9IjkwMCI+PHBhdGggZmlsbD0iIzM3MzgzZSIgZD0iTTAgMGgxOTIwdjkwMEgweiIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+);
+        position: absolute;
+        z-index: -100;
+        box-shadow: rgb(18, 18, 18) 0px -5px 5px inset;
+        opacity: 1;
+        direction: rtl;
+    }
+
+}
