@@ -6,7 +6,7 @@ const Home = () => {
     return (
         <div className="container-fluid">
             <div className="row">
-                <Slider/>
+                <Slider sliderID={1316}/>
             </div>
         </div>
     )

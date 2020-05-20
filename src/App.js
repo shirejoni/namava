@@ -2,16 +2,21 @@ import React from 'react';
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import Home from "./pages/Home";
 import './style.scss';
+import Provider from "./utils/Provider";
+
 function App() {
     return (
         <BrowserRouter>
-            <Switch>
+            <Provider>
+                <Switch>
 
-                <Route path="/" exact>
-                    <Home/>
-                </Route>
+                    <Route path="/" exact>
+                        <Home/>
+                    </Route>
 
-            </Switch>
+                </Switch>
+            </Provider>
+
         </BrowserRouter>
     );
 }
