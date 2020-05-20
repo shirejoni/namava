@@ -24,16 +24,25 @@ const fetchSlider = async (dispatch, sliderID) => {
 
 const Slider = ({sliderID}) => {
 
-    let {state, dispatch} = useSlider();
+    let {state, dispatch, nextSlide} = useSlider();
     useEffect(() => {
         fetchSlider(dispatch,sliderID);
     }, [dispatch, sliderID]);
 
+    useEffect(() => {
+        let slideTimeOutHandler = undefined;
+        slideTimeOutHandler = setTimeout(() => {
+            nextSlide();
+        }, 3000);
+        return () => {
+            clearTimeout(slideTimeOutHandler);
+        }
+    })
 
     return (
         <div className="col-12 p-0 slider">
-            {(state.succeeded && state.items.length > 0) && state.items.map(sliderItem => (
-                <SliderItem key={sliderItem['id']} slider={sliderItem}/>
+            {(state.succeeded && state.items.length > 0) && state.items.map((sliderItem, index) => (
+                <SliderItem key={sliderItem['id']} className={state.currentSlide == index ? 'active' : (state.previousSlide == index ? 'previous' : '')} slider={sliderItem}/>
             ))}
         </div>
     );

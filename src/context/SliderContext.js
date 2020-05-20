@@ -58,9 +58,31 @@ const useSlider = () => {
         throw Error("useSlider should be use inside SliderProvider");
     }
     let {state, dispatch} = context;
+
+    const nextSlide = () => {
+        let previousSlide = state.currentSlide;
+        let currentSlide = (state.currentSlide + 1) % state.items.length;
+        dispatch({
+            type: types.SET_SLIDE,
+            previousSlide,
+            currentSlide
+        })
+    }
+    const previousSlide = () => {
+        let previousSlide = state.currentSlide;
+        let currentSlide = (state.currentSlide + state.items.length - 1) % state.items.length;
+        dispatch({
+            type: types.SET_SLIDE,
+            previousSlide,
+            currentSlide
+        });
+    }
+
     return {
         state,
-        dispatch
+        dispatch,
+        nextSlide,
+        previousSlide
     }
 }
 

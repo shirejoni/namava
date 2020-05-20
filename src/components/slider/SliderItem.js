@@ -11,9 +11,9 @@ const Slide = styled.div`
         padding-bottom: 40px;
     `;
 
-const SliderItem = ({slider}) => {
+const SliderItem = ({slider, className}) => {
     return (
-        <div className="slider-container">
+        <div className={`slider-container ${className}`}>
             <Slide imageUrl={getNamavaUrl(slider['coverLandscape'])}>
             </Slide>
         </div>
