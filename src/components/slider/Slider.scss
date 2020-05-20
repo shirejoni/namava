@@ -3,6 +3,26 @@
     padding-bottom: 40px;
     position: relative;
     z-index: 0;
+    .slider-arrowBox {
+        position: absolute;
+        left: 43px;
+        bottom: 7.03125vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .slider-arrow-left {
+            transform: rotate(180deg);
+        }
+        .slider-arrow {
+            display: flex;
+            align-items: center;
+            &:hover {
+                .slider-arrow--chevron path:last-child {
+                    opacity: 1;
+                }
+            }
+        }
+    }
     .slider-container {
         width: 100%;
         height: 100%;
@@ -23,6 +43,25 @@
             opacity: 0;
             animation: 1s linear 0s 1 normal none running slideFadeOut;
 
+        }
+        .slide-info-container {
+            max-width: 50%;
+            padding: 7.03125vw 43px;
+            min-height: 37.5vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            .logo-image {
+                max-width: 20vw;
+                max-height: 10vw;
+                margin-bottom: 10px
+            }
+            .title {
+                font-family: Shabnam;
+                font-size: 20px;
+                margin-bottom: 6px;
+                color: white;
+            }
         }
     }
 
