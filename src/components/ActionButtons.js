@@ -3,6 +3,7 @@ import './ActionButtons.scss';
 import Config from '../config';
 import momentj from 'moment-jalaali';
 import fa from 'moment/locale/fa';
+import 'moment-timezone';
 
 const ActionButtons = ({item}) => {
 
