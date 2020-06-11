@@ -1,0 +1,39 @@
+.row-list {
+    direction: rtl;
+    .row-title {
+        width: 100%;
+        display: flex;
+        box-sizing: border-box;
+        margin-bottom: 16px;
+        padding: 0 43px;
+        align-items: center;
+
+        h3 {
+            font: 18px Shabnam;
+            color: white;
+        }
+
+        a {
+            font: 12px Shabnam;
+            color: white;
+            display: flex;
+            align-items: center;
+            margin-right: 16px;
+            text-decoration: none;
+            opacity: 0;
+            transition: opacity 0.4s;
+
+            &:hover {
+                opacity: 1;
+            }
+
+            svg {
+                fill: white;
+                width: 20px;
+                height: 30px;
+                margin-right: 5px;
+            }
+        }
+    }
+
+}
