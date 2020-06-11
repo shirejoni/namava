@@ -3,7 +3,7 @@ import {BrowserRouter, Route, Switch} from "react-router-dom";
 import Home from "./pages/Home";
 import './style.scss';
 import Provider from "./utils/Provider";
-
+import 'flickity/dist/flickity.min.css';
 function App() {
     return (
         <BrowserRouter>

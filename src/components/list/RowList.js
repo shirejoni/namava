@@ -1,9 +1,29 @@
-import React from "react";
+import React, {createRef, useEffect} from "react";
 import {Link} from "react-router-dom";
 import './RowList.scss';
 import MovieItem from "../MovieItem";
-
+import Flickity from 'flickity';
 const RowList = () => {
+    let flickityRef = createRef();
+
+    useEffect(() => {
+        let flickityHandler = undefined;
+        if(flickityRef.current && flickityRef.current.querySelector('.row')) {
+            flickityHandler = new Flickity(flickityRef.current.querySelector('.row'), {
+                contain: true,
+                pageDots: false,
+                prevNextButtons: false,
+                cellAlign: 'right',
+                rightToLeft: true,
+                groupCells: true
+            });
+        }
+        return () => {
+            if(flickityHandler) {
+                flickityHandler.remove();
+            }
+        }
+    })
     return (
         <div className="row-list col-12 p-0">
             <div className="row-title">
@@ -18,7 +38,7 @@ const RowList = () => {
                     </svg>
                 </Link>
             </div>
-            <div className="list-container">
+            <div className="list-container" ref={flickityRef}>
                 <div className="row">
                     <MovieItem/>
                     <MovieItem/>
