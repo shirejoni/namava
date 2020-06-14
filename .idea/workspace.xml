@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e382f227-8848-4114-ae28-724e66dbfa08" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/ActionButtons.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ActionButtons.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/slider/SliderItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/slider/SliderItem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/list/RowList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/list/RowList.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -1,10 +1,28 @@
-import React, {createRef, useEffect} from "react";
+import React, {createRef, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import './RowList.scss';
 import MovieItem from "../MovieItem";
 import Flickity from 'flickity';
-const RowList = () => {
+import namava from "../../utils/namava";
+
+const fetchData = async (setItems, setLoading, setError) => {
+    setLoading(true);
+    let {data} = await namava.get('api/v1.0/post-groups/1263/medias?pi=1&ps=20');
+    setLoading(false);
+    if(data['succeeded'] === true) {
+        setItems(data['result']);
+    }
+}
+const RowList = ({className, data}) => {
     let flickityRef = createRef();
+    let [items, setItems] = useState([]);
+    let [loading, setLoading] = useState(false);
+    let [error, setError] = useState(false);
+    useEffect(() => {
+        if(items.length === 0 && loading === false && error === false) {
+            fetchData(setItems, setLoading, setError);
+        }
+    })
 
     useEffect(() => {
         let flickityHandler = undefined;
@@ -25,7 +43,7 @@ const RowList = () => {
         }
     })
     return (
-        <div className="row-list col-12 p-0">
+        <div className={`row-list col-12 p-0 ${className}`}>
             <div className="row-title">
                 <h3>ویژه</h3>
                 <Link to={"#"} className="more-link">
@@ -39,16 +57,11 @@ const RowList = () => {
                 </Link>
             </div>
             <div className="list-container" ref={flickityRef}>
-                <div className="row">
-                    <MovieItem/>
-                    <MovieItem/>
-                    <MovieItem/>
-                    <MovieItem/>
-                    <MovieItem/>
-                    <MovieItem/>
-                    <MovieItem/>
-                    <MovieItem/>
-                </div>
+                {(items.length > 0 && loading === false) && (
+                    <div className="row">
+                        {items.map(item => (<MovieItem key={`row-list-item-${item['id']}`} item={item}/>))}
+                    </div>
+                )}
             </div>
         </div>
     )

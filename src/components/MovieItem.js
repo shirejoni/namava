@@ -1,15 +1,16 @@
 import React from "react";
 import './MovieItem.scss';
+import {getNamavaUrl} from "../utils/functions";
 
-const MovieItem = () => {
+const MovieItem = ({item}) => {
     return (
         <div className="movie-item">
             <div className="item-image">
-                <img src="https://namava.ir/Content/Upload/Images/ddcbbcb1-bc4c-4c9d-a0d3-ef9c5b1b1e2d.jpg"
-                     alt="movie"/>
+                <img src={getNamavaUrl(item['imageUrl'])}
+                     alt={item['caption']}/>
             </div>
             <div className="item-title">
-                روزی زیبا در محله
+                {item['caption']}
             </div>
         </div>
     )
