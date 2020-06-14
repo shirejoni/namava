@@ -1,11 +1,14 @@
 import React from "react";
 import {SliderProvider} from "../context/SliderContext";
+import {MenusProvider} from "../context/MenusContext";
 
 const Provider = ({children}) => {
     return (
-        <SliderProvider>
-            {children}
-        </SliderProvider>
+        <MenusProvider>
+            <SliderProvider>
+                {children}
+            </SliderProvider>
+        </MenusProvider>
     )
 }
 export default Provider;
