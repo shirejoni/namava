@@ -37,8 +37,26 @@ const Home = () => {
     return (
         <div className="container-fluid">
             <div className="row">
-                <Slider sliderID={1316}/>
-                <RowList/>
+                {(menus.loading === false && menus.succeeded === true) && menus.home.pageItems.map(({payloadType, payloadKey, ...pageItem}) => {
+                    let section = undefined;
+
+                    switch (payloadType) {
+                        case "Slider":
+                            section = <Slider key={`page-section-${pageItem['id']}`} sliderID={payloadKey}/>;
+                            break;
+                        case "PostGroup":
+                            section = <RowList key={`page-section-${pageItem['id']}`} data={{
+                                payloadType,
+                                payloadKey,
+                                title: pageItem['caption']
+                            }}/>
+                            break;
+
+                    }
+
+
+                    return section;
+                })}
             </div>
         </div>
     )

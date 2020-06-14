@@ -5,22 +5,22 @@ import MovieItem from "../MovieItem";
 import Flickity from 'flickity';
 import namava from "../../utils/namava";
 
-const fetchData = async (setItems, setLoading, setError) => {
+const fetchData = async (payloadKey, setItems, setLoading, setError) => {
     setLoading(true);
-    let {data} = await namava.get('api/v1.0/post-groups/1263/medias?pi=1&ps=20');
+    let {data} = await namava.get(`api/v1.0/post-groups/${payloadKey}/medias?pi=1&ps=20`);
     setLoading(false);
     if(data['succeeded'] === true) {
         setItems(data['result']);
     }
 }
-const RowList = ({className, data}) => {
+const RowList = ({className, data: {payloadType, payloadKey, title}}) => {
     let flickityRef = createRef();
     let [items, setItems] = useState([]);
     let [loading, setLoading] = useState(false);
     let [error, setError] = useState(false);
     useEffect(() => {
         if(items.length === 0 && loading === false && error === false) {
-            fetchData(setItems, setLoading, setError);
+            fetchData(payloadKey, setItems, setLoading, setError);
         }
     })
 
@@ -45,7 +45,7 @@ const RowList = ({className, data}) => {
     return (
         <div className={`row-list col-12 p-0 ${className}`}>
             <div className="row-title">
-                <h3>ویژه</h3>
+                <h3>{title}</h3>
                 <Link to={"#"} className="more-link">
                     <span>مشاهده همه</span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="40" viewBox="10 0 20 40"

@@ -4,6 +4,7 @@
     <list default="true" id="e382f227-8848-4114-ae28-724e66dbfa08" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/list/RowList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/list/RowList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Home.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,7 +37,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="D:/Projects/JSProject" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/context" />
     <property name="list.type.of.created.stylesheet" value="SCSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -46,6 +47,11 @@
     <property name="nodejs_interpreter_path" value="node" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Shirejoni\Desktop\Projects\namava\src\context" />
+    </key>
   </component>
   <component name="ServiceViewManager">
     <option name="viewStates">
@@ -72,6 +78,21 @@
       <workItem from="1590075514285" duration="20000" />
       <workItem from="1591800791083" duration="870000" />
     </task>
+    <task id="LOCAL-00001" summary="Dynamic MovieItem">
+      <created>1592121880116</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1592121880116</updated>
+    </task>
+    <task id="LOCAL-00002" summary="get Menus from namava">
+      <created>1592122857941</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1592122857941</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -90,11 +111,18 @@
       </map>
     </option>
   </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <MESSAGE value="Dynamic MovieItem" />
+    <MESSAGE value="get Menus from namava" />
+    <option name="LAST_COMMIT_MESSAGE" value="get Menus from namava" />
+  </component>
   <component name="WindowStateProjectService">
-    <state x="391" y="0" key="CommitChangelistDialog2" timestamp="1591801767904">
+    <state x="391" y="0" key="CommitChangelistDialog2" timestamp="1592130803720">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="391" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1591801767904" />
+    <state x="391" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1592130803720" />
     <state width="1537" height="328" key="GridCell.Tab.0.bottom" timestamp="1590075500261">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -111,10 +139,14 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1537" height="328" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1590075500261" />
-    <state width="498" height="446" key="SwitcherDM" timestamp="1590069972224">
+    <state width="498" height="446" key="SwitcherDM" timestamp="1592130812818">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="498" height="446" key="SwitcherDM/0.0.1536.824@0.0.1536.824" timestamp="1590069972224" />
+    <state width="498" height="446" key="SwitcherDM/0.0.1536.824@0.0.1536.824" timestamp="1592130812818" />
+    <state x="577" y="323" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1592121998219">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="577" y="323" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1592121998219" />
     <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1590075534159">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
