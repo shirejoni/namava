@@ -4,23 +4,22 @@ import './RowList.scss';
 import MovieItem from "../MovieItem";
 import Flickity from 'flickity';
 import namava from "../../utils/namava";
+import {fetchData} from "../../utils/functions";
 
-const fetchData = async (payloadKey, setItems, setLoading, setError) => {
-    setLoading(true);
-    let {data} = await namava.get(`api/v1.0/post-groups/${payloadKey}/medias?pi=1&ps=20`);
-    setLoading(false);
-    if(data['succeeded'] === true) {
-        setItems(data['result']);
-    }
-}
-const RowList = ({className, data: {payloadType, payloadKey, title}}) => {
+const RowList = ({className, data: {payloadType, payloadKey, title}, ItemComponent}) => {
     let flickityRef = createRef();
     let [items, setItems] = useState([]);
     let [loading, setLoading] = useState(false);
     let [error, setError] = useState(false);
     useEffect(() => {
         if(items.length === 0 && loading === false && error === false) {
-            fetchData(payloadKey, setItems, setLoading, setError);
+            fetchData(payloadKey, payloadType, (result) => {
+                setItems(result);
+            }, (error) => {
+                setError(error);
+            }, (isLoading) => {
+                setLoading(isLoading);
+            });
         }
     })
 
@@ -59,7 +58,7 @@ const RowList = ({className, data: {payloadType, payloadKey, title}}) => {
             <div className="list-container" ref={flickityRef}>
                 {(items.length > 0 && loading === false) && (
                     <div className="row">
-                        {items.map(item => (<MovieItem key={`row-list-item-${item['id']}`} item={item}/>))}
+                        {items.map(item => (<ItemComponent key={`row-list-item-${item['id']}`} item={item}/>))}
                     </div>
                 )}
             </div>

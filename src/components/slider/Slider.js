@@ -6,7 +6,7 @@ import {types, useSlider} from "../../context/SliderContext";
 import Config from "../../config";
 const fetchSlider = async (dispatch, sliderID) => {
     dispatch({type: types.SET_LOADING});
-    let url = (Config.sliders.url).replace('{{SLIDER_ID}}', sliderID);
+    let url = (Config.sections.Slider.url).replace('{{SLIDER_ID}}', sliderID);
     let {data: {succeeded, result, errors}} = await namava.get(url);
     if(succeeded) {
         dispatch({

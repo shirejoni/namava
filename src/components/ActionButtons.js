@@ -18,7 +18,7 @@ const ActionButtons = ({item}) => {
         let publishDate = new momentj(item["publishDate"].substr(0, 15));
         console.log(publishDate, item['publishDate'].substr(0, 15));
         buttons.push(
-            <div className="date-box" key={`button-${item["id"]}`}>
+            <div key={`action-button-${item['id']}`} className="date-box" key={`button-${item["id"]}`}>
                 <div className="box-container">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                          className="t-icon-0-1-195">
@@ -33,7 +33,7 @@ const ActionButtons = ({item}) => {
         );
     }else if(item['type'] == Config.itemTypes.PurchasableMovie) {
         buttons.push(
-            <div className="button-box">
+            <div key={`action-button-${item['id']}`} className="button-box">
                 <div className="box-container">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
                          className="Button-icon-0-1-58">
@@ -49,7 +49,7 @@ const ActionButtons = ({item}) => {
     }
 
     if(buttons.length == 0) {
-        buttons.push(<div className="button-box">
+        buttons.push(<div key={`action-button-${item['id']}`} className="button-box">
             <div className="button-title">
                 عضویت و دریافت یک روز اشتراک رایگان
             </div>
