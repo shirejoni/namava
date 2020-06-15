@@ -5,8 +5,8 @@ import MovieItem from "../MovieItem";
 import Flickity from 'flickity';
 import namava from "../../utils/namava";
 import {fetchData} from "../../utils/functions";
-
-const RowList = ({className, data: {payloadType, payloadKey, title}, ItemComponent}) => {
+import {RealLazyLoad} from 'real-react-lazyload'
+const RowList = React.forwardRef(({className, data: {payloadType, payloadKey, title}, ItemComponent, placeholder = false}, ref) => {
     let flickityRef = createRef();
     let [items, setItems] = useState([]);
     let [loading, setLoading] = useState(false);
@@ -40,9 +40,33 @@ const RowList = ({className, data: {payloadType, payloadKey, title}, ItemCompone
                 flickityHandler.remove();
             }
         }
-    })
+    });
+
+    const getItems = () => {
+        let content = [];
+        if(placeholder || placeholder === false && items.length === 0) {
+            let count = 8;
+            if(typeof placeholder === 'number') {
+                count = placeholder;
+            }
+            for(let i = 0; i < count; i++) {
+                content.push(<ItemComponent key={`row-item-${payloadType}-${payloadKey}-${i}`} placeholder={true}/>)
+            }
+        }else {
+            content = items.map(item => (<ItemComponent key={`row-item-${payloadType}-${payloadKey}-${item['id']}`} item={item}/>))
+        }
+        return content;
+    }
+
+    if(placeholder) {
+        return (
+            <div ref={ref} className="row">
+                {getItems()}
+            </div>
+        )
+    }
     return (
-        <div className={`row-list col-12 p-0 ${className}`}>
+        <div ref={ref} className={`row-list col-12 p-0 ${className}`}>
             <div className="row-title">
                 <h3>{title}</h3>
                 <Link to={"#"} className="more-link">
@@ -56,14 +80,19 @@ const RowList = ({className, data: {payloadType, payloadKey, title}, ItemCompone
                 </Link>
             </div>
             <div className="list-container" ref={flickityRef}>
-                {(items.length > 0 && loading === false) && (
+                <RealLazyLoad placeholder={
+                    <RowList placeholder={true} data={{payloadKey, payloadType}} ItemComponent={ItemComponent}/>
+                } componentEntryCallback={() => {
+                    console.log("now you can request");
+                    return false;
+                }}>
                     <div className="row">
-                        {items.map(item => (<ItemComponent key={`row-list-item-${item['id']}`} item={item}/>))}
+                        {(items.length > 0 && loading === false) && (getItems())}
                     </div>
-                )}
+                </RealLazyLoad>
             </div>
         </div>
     )
-}
+});
 
 export default RowList;
