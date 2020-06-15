@@ -25,6 +25,16 @@ export default {
             url: "api/v1.0/post-groups/{{PAYLOAD_KEY}}/medias",
             pi: 1,
             ps: 20,
+        },
+        [pageItemsType.Latest]: {
+            url: "api/v1.0/medias/latest",
+            pi: 1,
+            ps: 20,
+        },
+        [pageItemsType.LatestEpisods]: {
+            url: "api/v1.0/medias/latest-episods",
+            pi: 1,
+            ps: 20,
         }
     }
 }

@@ -5,6 +5,7 @@ import RowList from "../components/list/RowList";
 import {types, useMenus} from "../context/MenusContext";
 import namava from "../utils/namava";
 import Config from "../config";
+import {getItemComponent} from "../utils/functions";
 
 const fetchMenus = async (dispatch) => {
     dispatch({type: types.SET_LOADING})
@@ -45,8 +46,10 @@ const Home = () => {
                         case Config.pageItemsType.Slider:
                             section = <Slider key={`page-section-${pageItem['pageItemId']}`} sliderID={payloadKey}/>;
                             break;
+                        case Config.pageItemsType.Latest:
+                        case Config.pageItemsType.LatestEpisods:
                         case Config.pageItemsType.PostGroup:
-                            let itemComponent = MovieItem;
+                            let itemComponent = getItemComponent(payloadType);
                             section = <RowList key={`page-section-${pageItem['pageItemId']}`} data={{
                                 payloadType,
                                 payloadKey,

@@ -15,13 +15,13 @@ const types = {
 let rowListReducer = (state, action) => {
     switch (action.type) {
         case types.SET_LOADING:
-            state = {...state, loading: action.loading};
+            state = {...state, loading: true};
             break;
         case types.SET_ITEMS:
-            state = {...state, error: false, items: action.items};
+            state = {...state, error: false, items: action.items, loading: false};
             break;
         case types.SET_ERROR:
-            state = {...state, items: [], error: action.error};
+            state = {...state, items: [], error: action.error, loading: false};
             break;
         case types.SET_FETCH_REQUEST:
             state = {...state, fetchRequest: true};
@@ -49,8 +49,9 @@ const RowList = React.forwardRef(({className, data: {payloadType, payloadKey, ti
             }, (error) => {
                 dispatch({type: types.SET_ERROR, error});
             }, (isLoading) => {
-                dispatch({type: types.SET_LOADING, loading: isLoading});
-
+                if(isLoading) {
+                    dispatch({type: types.SET_LOADING, loading: isLoading});
+                }
             });
         }
     }, [payloadKey, payloadType, placeholder, fetchRequest, dispatch, items.length, loading, error]);
@@ -85,7 +86,7 @@ const RowList = React.forwardRef(({className, data: {payloadType, payloadKey, ti
                 content.push(<ItemComponent key={`row-item-${payloadType}-${payloadKey}-${i}`} placeholder={true}/>)
             }
         }else {
-            content = items.map(item => (<ItemComponent key={`row-item-${payloadType}-${payloadKey}-${item['id']}`} item={item}/>))
+            content = items.map(item => (<ItemComponent key={`row-item-${payloadType}-${payloadKey}-${item['id'] || item['episodId']}`} item={item}/>))
         }
         return content;
     }
@@ -116,7 +117,7 @@ const RowList = React.forwardRef(({className, data: {payloadType, payloadKey, ti
                 <RealLazyLoad forceVisible={canIRender} placeholder={
                     <RowList placeholder={true} data={{payloadKey, payloadType}} ItemComponent={ItemComponent}/>
                 } componentEntryCallback={() => {
-                    if(fetchRequest === false) {
+                    if(fetchRequest === false && loading === false) {
                         dispatch({type: types.SET_FETCH_REQUEST});
                     }
                     return false;
