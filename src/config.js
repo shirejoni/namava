@@ -35,6 +35,16 @@ export default {
             url: "api/v1.0/medias/latest-episods",
             pi: 1,
             ps: 20,
+        },
+        [pageItemsType.CategoryGroup]: {
+            url: "api/v1.0/category-groups/{{PAYLOAD_KEY}}/latest-medias",
+            pi: 1,
+            ps: 20,
+        },
+        [pageItemsType.ExclusiveDubs]: {
+            url: "api/v1.0/medias/exclusive-dubs",
+            pi: 1,
+            ps: 20,
         }
     }
 }

@@ -1,6 +1,7 @@
 import namava from "./namava";
 import Config from "../config";
 import MovieItem from "../components/MovieItem";
+import ExclusiveDubItem from "../components/ExclusiveDubItem";
 
 export function getNamavaUrl(url) {
     return `http://namava.ir${url}`;
@@ -38,8 +39,11 @@ export function getItemComponent(payloadType) {
     switch (payloadType) {
         case Config.pageItemsType.Latest:
         case Config.pageItemsType.LatestEpisods:
+        case Config.pageItemsType.CategoryGroup:
         case Config.pageItemsType.PostGroup:
             return MovieItem;
+        case Config.pageItemsType.ExclusiveDubs:
+            return ExclusiveDubItem;
         default:
             return undefined;
     }

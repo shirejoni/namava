@@ -48,6 +48,8 @@ const Home = () => {
                             break;
                         case Config.pageItemsType.Latest:
                         case Config.pageItemsType.LatestEpisods:
+                        case Config.pageItemsType.CategoryGroup:
+                        case Config.pageItemsType.ExclusiveDubs:
                         case Config.pageItemsType.PostGroup:
                             let itemComponent = getItemComponent(payloadType);
                             section = <RowList key={`page-section-${pageItem['pageItemId']}`} data={{
