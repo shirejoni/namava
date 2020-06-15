@@ -11,8 +11,9 @@ const RowList = React.forwardRef(({className, data: {payloadType, payloadKey, ti
     let [items, setItems] = useState([]);
     let [loading, setLoading] = useState(false);
     let [error, setError] = useState(false);
+    let [fetchRequest, setFetchRequest] = useState(false);
     useEffect(() => {
-        if(items.length === 0 && loading === false && error === false) {
+        if(fetchRequest && (items.length === 0 && loading === false && error === false)) {
             fetchData(payloadKey, payloadType, (result) => {
                 setItems(result);
             }, (error) => {
@@ -21,7 +22,7 @@ const RowList = React.forwardRef(({className, data: {payloadType, payloadKey, ti
                 setLoading(isLoading);
             });
         }
-    })
+    }, [payloadKey, payloadType, placeholder, fetchRequest]);
 
     useEffect(() => {
         let flickityHandler = undefined;
@@ -40,7 +41,7 @@ const RowList = React.forwardRef(({className, data: {payloadType, payloadKey, ti
                 flickityHandler.remove();
             }
         }
-    });
+    }, [flickityRef.current, items.length]);
 
     const getItems = () => {
         let content = [];
@@ -65,6 +66,7 @@ const RowList = React.forwardRef(({className, data: {payloadType, payloadKey, ti
             </div>
         )
     }
+    let canIRender = items.length > 0 && error === false && loading === false;
     return (
         <div ref={ref} className={`row-list col-12 p-0 ${className}`}>
             <div className="row-title">
@@ -80,10 +82,12 @@ const RowList = React.forwardRef(({className, data: {payloadType, payloadKey, ti
                 </Link>
             </div>
             <div className="list-container" ref={flickityRef}>
-                <RealLazyLoad placeholder={
+                <RealLazyLoad forceVisible={canIRender} placeholder={
                     <RowList placeholder={true} data={{payloadKey, payloadType}} ItemComponent={ItemComponent}/>
                 } componentEntryCallback={() => {
-                    console.log("now you can request");
+                    if(fetchRequest === false) {
+                        setFetchRequest(true);
+                    }
                     return false;
                 }}>
                     <div className="row">
