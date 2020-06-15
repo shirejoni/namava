@@ -9,14 +9,13 @@ export const fetchData = async (payloadKey, payloadType, onSuccess, onError, set
         setLoading(true);
     }
     let section = Config.sections[payloadType];
-    if(section == undefined || section.url == null) {
+    if(section === undefined || section.url == null) {
         if(setLoading) {
             setLoading(false);
         }
         onError(`payloadType: ${payloadType} is not supported in url`);
         return;
     }
-    console.log(section);
     let url = section.url.replace('{{PAYLOAD_KEY}}', payloadKey);
     let {data: {succeeded, result, error}} = await namava.get(url, {
         params: {

@@ -1,28 +1,59 @@
-import React, {createRef, useEffect, useState} from "react";
+import React, {createRef, useEffect, useReducer} from "react";
 import {Link} from "react-router-dom";
 import './RowList.scss';
-import MovieItem from "../MovieItem";
 import Flickity from 'flickity';
-import namava from "../../utils/namava";
 import {fetchData} from "../../utils/functions";
-import {RealLazyLoad} from 'real-react-lazyload'
+import {RealLazyLoad} from 'real-react-lazyload';
+
+const types = {
+    "SET_LOADING": "SET_LOADING",
+    "SET_ITEMS": "SET_ITEMS",
+    "SET_ERROR": "SET_ERROR",
+    "SET_FETCH_REQUEST": "SET_FETCH_REQUEST",
+}
+
+let rowListReducer = (state, action) => {
+    switch (action.type) {
+        case types.SET_LOADING:
+            state = {...state, loading: action.loading};
+            break;
+        case types.SET_ITEMS:
+            state = {...state, error: false, items: action.items};
+            break;
+        case types.SET_ERROR:
+            state = {...state, items: [], error: action.error};
+            break;
+        case types.SET_FETCH_REQUEST:
+            state = {...state, fetchRequest: true};
+            break;
+        default:
+            throw Error(`An unknown Action to RowList Reducer ${action.type}`)
+    }
+    return state;
+}
+
+let initialState = {
+    items: [],
+    loading: false,
+    error: false,
+    fetchRequest: false,
+}
 const RowList = React.forwardRef(({className, data: {payloadType, payloadKey, title}, ItemComponent, placeholder = false}, ref) => {
     let flickityRef = createRef();
-    let [items, setItems] = useState([]);
-    let [loading, setLoading] = useState(false);
-    let [error, setError] = useState(false);
-    let [fetchRequest, setFetchRequest] = useState(false);
+    let [state, dispatch] = useReducer(rowListReducer, initialState, (initState) => initState);
+    let {items, loading, error, fetchRequest} = state;
     useEffect(() => {
         if(fetchRequest && (items.length === 0 && loading === false && error === false)) {
             fetchData(payloadKey, payloadType, (result) => {
-                setItems(result);
+                dispatch({type: types.SET_ITEMS, items: result});
             }, (error) => {
-                setError(error);
+                dispatch({type: types.SET_ERROR, error});
             }, (isLoading) => {
-                setLoading(isLoading);
+                dispatch({type: types.SET_LOADING, loading: isLoading});
+
             });
         }
-    }, [payloadKey, payloadType, placeholder, fetchRequest]);
+    }, [payloadKey, payloadType, placeholder, fetchRequest, dispatch, items.length, loading, error]);
 
     useEffect(() => {
         let flickityHandler = undefined;
@@ -41,11 +72,11 @@ const RowList = React.forwardRef(({className, data: {payloadType, payloadKey, ti
                 flickityHandler.remove();
             }
         }
-    }, [flickityRef.current, items.length]);
+    }, [flickityRef, items.length]);
 
     const getItems = () => {
         let content = [];
-        if(placeholder || placeholder === false && items.length === 0) {
+        if(placeholder || (placeholder === false && items.length === 0)) {
             let count = 8;
             if(typeof placeholder === 'number') {
                 count = placeholder;
@@ -86,7 +117,7 @@ const RowList = React.forwardRef(({className, data: {payloadType, payloadKey, ti
                     <RowList placeholder={true} data={{payloadKey, payloadType}} ItemComponent={ItemComponent}/>
                 } componentEntryCallback={() => {
                     if(fetchRequest === false) {
-                        setFetchRequest(true);
+                        dispatch({type: types.SET_FETCH_REQUEST});
                     }
                     return false;
                 }}>

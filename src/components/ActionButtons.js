@@ -9,7 +9,7 @@ const ActionButtons = ({item}) => {
 
     let buttons = [];
 
-    if(item['publishInFuture'] == true) {
+    if(item['publishInFuture'] === true) {
         momentj.locale("fa", fa);
         momentj.loadPersian({
             usePersianDigits: true ,
@@ -18,7 +18,7 @@ const ActionButtons = ({item}) => {
         let publishDate = new momentj(item["publishDate"].substr(0, 15));
         console.log(publishDate, item['publishDate'].substr(0, 15));
         buttons.push(
-            <div key={`action-button-${item['id']}`} className="date-box" key={`button-${item["id"]}`}>
+            <div key={`action-button-${item['id']}`} className="date-box">
                 <div className="box-container">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                          className="t-icon-0-1-195">
@@ -31,7 +31,7 @@ const ActionButtons = ({item}) => {
                 </div>
             </div>
         );
-    }else if(item['type'] == Config.itemTypes.PurchasableMovie) {
+    }else if(item['type'] === Config.itemTypes.PurchasableMovie) {
         buttons.push(
             <div key={`action-button-${item['id']}`} className="button-box">
                 <div className="box-container">
@@ -48,7 +48,7 @@ const ActionButtons = ({item}) => {
         );
     }
 
-    if(buttons.length == 0) {
+    if(buttons.length === 0) {
         buttons.push(<div key={`action-button-${item['id']}`} className="button-box">
             <div className="button-title">
                 عضویت و دریافت یک روز اشتراک رایگان

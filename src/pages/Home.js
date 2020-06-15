@@ -31,7 +31,7 @@ const Home = () => {
         if(menus.loading === false && menus.succeeded === false && menus.errors.length === 0) {
             fetchMenus(dispatch);
         }
-    }, [dispatch]);
+    }, [dispatch, menus]);
 
 
     console.log("Home", menus);
@@ -53,7 +53,8 @@ const Home = () => {
                                 title: pageItem['caption']
                             }} ItemComponent={itemComponent}/>
                             break;
-
+                        default:
+                            section = undefined;
                     }
 
 
