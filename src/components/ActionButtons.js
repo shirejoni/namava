@@ -16,7 +16,6 @@ const ActionButtons = ({item}) => {
         });
 
         let publishDate = new momentj(item["publishDate"].substr(0, 15));
-        console.log(publishDate, item['publishDate'].substr(0, 15));
         buttons.push(
             <div key={`action-button-${item['id']}`} className="date-box">
                 <div className="box-container">

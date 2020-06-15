@@ -35,6 +35,30 @@ export const fetchData = async (payloadKey, payloadType, onSuccess, onError, set
     }
 }
 
+export const fetchBriefData = async (id, onSuccess, onError, setLoading) => {
+    if(setLoading) {
+        setLoading(true);
+    }
+    let section = Config.sections.BriefData;
+    if(section === undefined || section.url == null) {
+        if(setLoading) {
+            setLoading(false);
+        }
+        onError(`payloadType: BriefData is not supported in url`);
+        return;
+    }
+    let url = section.url.replace('{{ID}}', id);
+    let {data: {succeeded, result, error}} = await namava.get(url);
+    if(setLoading) {
+        setLoading(false);
+    }
+    if(succeeded === true && error == null) {
+        onSuccess(result);
+    }else {
+        onError(error);
+    }
+}
+
 export function getItemComponent(payloadType) {
     switch (payloadType) {
         case Config.pageItemsType.Latest:

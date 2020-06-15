@@ -17,6 +17,10 @@ export default {
         Series: "Series",
         Movie: "Movie",
     },
+    dubsType: {
+        "ExclusiveDubs": "ExclusiveDubs",
+        "StudioDubs": "StudioDubs"
+    },
     sections: {
         [pageItemsType.Slider]: {
             url: "api/v1.0/medias/sliders/{{SLIDER_ID}}",
@@ -55,6 +59,9 @@ export default {
             url:"api/v1.0/medias/banners/{{PAYLOAD_KEY}}",
             pi: 1,
             ps: 20
+        },
+        "BriefData": {
+            url: "api/v1.0/medias/{{ID}}/brief-preview",
         }
     }
 }
