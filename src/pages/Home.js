@@ -6,6 +6,8 @@ import {types, useMenus} from "../context/MenusContext";
 import namava from "../utils/namava";
 import Config from "../config";
 import {getItemComponent} from "../utils/functions";
+import AdsItem from "../components/AdsItem";
+import BannerItem from "../components/BannerItem";
 
 const fetchMenus = async (dispatch) => {
     dispatch({type: types.SET_LOADING})
@@ -58,6 +60,20 @@ const Home = () => {
                                 title: pageItem['caption']
                             }} ItemComponent={itemComponent}/>
                             break;
+                        case Config.pageItemsType.Advertisement:
+                            section = <RowList className="Advertisement" key={`page-section-${pageItem['pageItemId']}`} data={{
+                                payloadType,
+                                payloadKey
+                            }} ItemComponent={AdsItem}/>
+
+                                break;
+                        case Config.pageItemsType.BannerGroup:
+                            section = <RowList className="Banner" key={`page-section-${pageItem['pageItemId']}`} data={{
+                                payloadType,
+                                payloadKey
+                            }} ItemComponent={BannerItem}/>
+
+                                break;
                         default:
                             section = undefined;
                     }

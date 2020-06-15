@@ -45,6 +45,16 @@ export default {
             url: "api/v1.0/medias/exclusive-dubs",
             pi: 1,
             ps: 20,
+        },
+        [pageItemsType.Advertisement]: {
+            url:"api/v1.0/medias/commercials/{{PAYLOAD_KEY}}",
+            pi: 1,
+            ps: 20
+        },
+        [pageItemsType.BannerGroup]: {
+            url:"api/v1.0/medias/banners/{{PAYLOAD_KEY}}",
+            pi: 1,
+            ps: 20
         }
     }
 }
