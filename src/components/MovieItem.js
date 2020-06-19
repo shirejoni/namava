@@ -16,7 +16,7 @@ const getCaption = (info) => {
     return caption;
 }
 
-const MovieItem = ({item, placeholder = false}) => {
+const MovieItem = ({item, placeholder = false, togglePreview}) => {
     let [info, setInfo] = useState();
     let type = undefined;
     if(placeholder === false) {
@@ -31,7 +31,12 @@ const MovieItem = ({item, placeholder = false}) => {
     }
 
     return (
-        <div className="movie-item">
+        <div className="movie-item" onClick={() => {
+            if(placeholder !== false) {
+                return false;
+            }
+            togglePreview(item['id'] || item['seriesId']);
+        }}>
             <div className="item-image" onMouseOver={onHoverItem}>
                 {placeholder === false && (
                     <ImageRealLazyLoad src={getNamavaUrl(item['imageUrl'] || item['seriesImageUrl'])}

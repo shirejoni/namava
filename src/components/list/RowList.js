@@ -1,4 +1,4 @@
-import React, {createRef, useEffect, useReducer} from "react";
+import React, {createRef, useEffect, useReducer, useState} from "react";
 import {Link} from "react-router-dom";
 import './RowList.scss';
 import Flickity from 'flickity';
@@ -76,6 +76,23 @@ const RowList = React.forwardRef(({className, data: {payloadType, payloadKey, ti
         }
     }, [flickityRef, items.length]);
 
+    let [previewState, setPreviewState] = useState({
+        id: undefined,
+        active: false,
+    });
+    const togglePreview = (id) => {
+        setPreviewState(oldState => {
+            let newState = {...oldState};
+            if(id != oldState['id']) {
+                newState['id'] = id;
+                newState['active'] = true;
+            }else {
+                newState['active'] = !oldState['active'];
+            }
+            return newState;
+        });
+    }
+
     const getItems = () => {
         let content = [];
         if(placeholder || (placeholder === false && items.length === 0)) {
@@ -87,7 +104,8 @@ const RowList = React.forwardRef(({className, data: {payloadType, payloadKey, ti
                 content.push(<ItemComponent key={`row-item-${payloadType}-${payloadKey}-${i}`} placeholder={true}/>)
             }
         }else {
-            content = items.map(item => (<ItemComponent key={`row-item-${payloadType}-${payloadKey}-${item['id'] || item['episodId']}`} item={item}/>))
+            content = items.map(item => (<ItemComponent key={`row-item-${payloadType}-${payloadKey}-${item['id'] || item['episodId']}`}
+                                                        togglePreview={togglePreview} item={item}/>))
         }
         return content;
     }
@@ -128,7 +146,7 @@ const RowList = React.forwardRef(({className, data: {payloadType, payloadKey, ti
                     </div>
                 </RealLazyLoad>
             </div>
-            {(preview === true && canIRender) && (<PreviewItem/>)}
+            {(preview === true && canIRender) && (<PreviewItem id={previewState['id']} isActive={previewState['active']}/>)}
         </div>
     )
 });
