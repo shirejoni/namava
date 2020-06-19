@@ -4,6 +4,7 @@ import './RowList.scss';
 import Flickity from 'flickity';
 import {fetchData} from "../../utils/functions";
 import {RealLazyLoad} from 'real-react-lazyload';
+import PreviewItem from "../movie/PreviewItem";
 
 const types = {
     "SET_LOADING": "SET_LOADING",
@@ -38,7 +39,7 @@ let initialState = {
     error: false,
     fetchRequest: false,
 }
-const RowList = React.forwardRef(({className, data: {payloadType, payloadKey, title}, ItemComponent, placeholder = false}, ref) => {
+const RowList = React.forwardRef(({className, data: {payloadType, payloadKey, title}, ItemComponent, placeholder = false, preview = false}, ref) => {
     let flickityRef = createRef();
     let [state, dispatch] = useReducer(rowListReducer, initialState, (initState) => initState);
     let {items, loading, error, fetchRequest} = state;
@@ -127,6 +128,7 @@ const RowList = React.forwardRef(({className, data: {payloadType, payloadKey, ti
                     </div>
                 </RealLazyLoad>
             </div>
+            {(preview === true && canIRender) && (<PreviewItem/>)}
         </div>
     )
 });

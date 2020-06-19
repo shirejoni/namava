@@ -43,7 +43,7 @@ const Home = () => {
             <div className="row">
                 {(menus.loading === false && menus.succeeded === true) && menus.home.pageItems.map(({payloadType, payloadKey, ...pageItem}) => {
                     let section = undefined;
-
+                    let preview = false;
                     switch (payloadType) {
                         case Config.pageItemsType.Slider:
                             section = <Slider key={`page-section-${pageItem['pageItemId']}`} sliderID={payloadKey}/>;
@@ -53,8 +53,11 @@ const Home = () => {
                         case Config.pageItemsType.CategoryGroup:
                         case Config.pageItemsType.ExclusiveDubs:
                         case Config.pageItemsType.PostGroup:
+                            if(payloadType !== Config.pageItemsType.CategoryGroup) {
+                                preview = true;
+                            }
                             let itemComponent = getItemComponent(payloadType);
-                            section = <RowList key={`page-section-${pageItem['pageItemId']}`} data={{
+                            section = <RowList preview={preview} key={`page-section-${pageItem['pageItemId']}`} data={{
                                 payloadType,
                                 payloadKey,
                                 title: pageItem['caption']
