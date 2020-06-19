@@ -1,5 +1,24 @@
 import React from "react";
 import './MovieDetail.scss';
+import ActionButtons from "../ActionButtons";
+import Config from "../../config";
+
+function getDefaultButton(data) {
+    return data['type'] !== Config.itemTypes.Series ? <div className="button-box" key={`button-${data["id"]}`}>
+        <div className="box-container">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
+                 className="Button-icon-0-1-58">
+                <path
+                    d="M14.66 8.347l-8.537-4.93c-.502-.287-1.12-.286-1.62.005s-.81.825-.81 1.404v9.858c-.001.58.307 1.115.808 1.406s1.12.293 1.62.005l8.537-4.93a1.64 1.64 0 0 0 0-2.82z"></path>
+            </svg>
+            <div className="button-title">
+                ورود و پخش فیلم
+            </div>
+        </div>
+    </div> : <div className="button-box" key={`button-${data["id"]}`}>
+        <div className="button-title">قسمت ها</div>
+    </div>;
+}
 
 const MovieDetail = () => {
     return <div className="movie-detail">
@@ -69,8 +88,16 @@ const MovieDetail = () => {
                                         زیرنویس
                             </span>
                         </div>
-
-
+                </div>
+                <div className="detail-description">
+                    در دنیایی که دسترسی به منابع حیاتی با چالش‌های بی‌شماری همراه است، زنی به نام فیوریوسا همراه با گروهی از اسرای زن، یک زاهد روان‌‎پریش و مردی مرموز به نام مکس، بر علیه یک فرمانروای ستمگر شورش می‌کند و...
+                </div>
+                <ActionButtons item={{}} moreButton={true} defaultButton={getDefaultButton({type: Config.itemTypes.Series})}/>
+                <div className="detail-row text-row">
+                    <span>ستارگان:</span>
+                    <a href="#">مهران مدیری</a>
+                    <span className="separator">-</span>
+                    <a href="#">مهران مدیری</a>
                 </div>
             </div>
 
