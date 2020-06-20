@@ -62,6 +62,9 @@ export default {
         },
         "BriefData": {
             url: "api/v1.0/medias/{{ID}}/brief-preview",
+        },
+        "Preview": {
+            url: "api/v1.0/medias/{{PAYLOAD_KEY}}/preview",
         }
     }
 }
