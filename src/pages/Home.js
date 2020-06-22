@@ -53,9 +53,7 @@ const Home = () => {
                         case Config.pageItemsType.CategoryGroup:
                         case Config.pageItemsType.ExclusiveDubs:
                         case Config.pageItemsType.PostGroup:
-                            if(payloadType !== Config.pageItemsType.CategoryGroup) {
-                                preview = true;
-                            }
+                            preview = true;
                             let itemComponent = getItemComponent(payloadType);
                             section = <RowList preview={preview} key={`page-section-${pageItem['pageItemId']}`} data={{
                                 payloadType,

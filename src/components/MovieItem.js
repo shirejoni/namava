@@ -16,7 +16,7 @@ const getCaption = (info) => {
     return caption;
 }
 
-const MovieItem = ({item, placeholder = false, togglePreview}) => {
+const MovieItem = ({className, item, placeholder = false, togglePreview}) => {
     let [info, setInfo] = useState();
     let type = undefined;
     if(placeholder === false) {
@@ -31,7 +31,7 @@ const MovieItem = ({item, placeholder = false, togglePreview}) => {
     }
 
     return (
-        <div className="movie-item" onClick={() => {
+        <div className={`movie-item ${className}`} onClick={() => {
             if(placeholder !== false) {
                 return false;
             }

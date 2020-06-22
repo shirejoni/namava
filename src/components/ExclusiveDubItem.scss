@@ -11,6 +11,28 @@
         font: 12px Shabnam;
         color: white;
     }
+    position: relative;
+    transform: translateY(0px);
+    transition: transform .25s;
+    &:after {
+        display: block;
+        content: '';
+        position: absolute;
+        bottom: -15px;
+        left: 25%;
+        width: 50%;
+        height: 5px;
+        background: rgb(170,170,170);
+        opacity: 0;
+        border-radius: 4px;
+        transition: opacity .25s;
+    }
+    &.active {
+        transform: translateY(15px);
+        &:after {
+            opacity: 1
+        }
+    }
     .item-image {
         height: 380px;
         margin-bottom: 8px;

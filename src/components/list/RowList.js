@@ -104,7 +104,7 @@ const RowList = React.forwardRef(({className, data: {payloadType, payloadKey, ti
                 content.push(<ItemComponent key={`row-item-${payloadType}-${payloadKey}-${i}`} placeholder={true}/>)
             }
         }else {
-            content = items.map(item => (<ItemComponent key={`row-item-${payloadType}-${payloadKey}-${item['id'] || item['episodId']}`}
+            content = items.map(item => (<ItemComponent className={((item['id'] || item['episodId']) === previewState['id']) && previewState['active'] ? 'active' : ''} key={`row-item-${payloadType}-${payloadKey}-${item['id'] || item['episodId']}`}
                                                         togglePreview={togglePreview} item={item}/>))
         }
         return content;
