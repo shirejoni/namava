@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import './style.scss';
 import Provider from "./utils/Provider";
 import 'flickity/dist/flickity.min.css';
+import Single from "./pages/Single";
 function App() {
     return (
         <BrowserRouter>
@@ -13,7 +14,7 @@ function App() {
                     <Route path="/" exact>
                         <Home/>
                     </Route>
-
+                    <Route path={'/:type/:id([0-9]+):name'} exact={true} component={Single}/>
                 </Switch>
             </Provider>
 
