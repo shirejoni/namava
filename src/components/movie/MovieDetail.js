@@ -3,7 +3,7 @@ import './MovieDetail.scss';
 import ActionButtons from "../ActionButtons";
 import Config from "../../config";
 import {getNamavaUrl} from "../../utils/functions";
-
+import styled, {css} from 'styled-components';
 function getDefaultButton(data) {
     return data['type'] !== Config.itemTypes.Series ? <div className="button-box" key={`button-${data["id"]}`}>
         <div className="box-container">
@@ -39,15 +39,35 @@ function getMediaDetailText(caption, items, maxLength, keyType) {
     )
 }
 
-const MovieDetail = ({loading, data}) => {
-    return <div className="movie-detail">
-            <div className="movie-image">
+const MovieDetailContainer = styled.div`
+    width: 100%;
+    hegith: 100%;
+    ${props => {
+        return props.topMedia === true && css`
+            min-height: 46.875vw;
+            box-shadow: 0 -5px 5px inset rgb(18,18,18);
+            background-size: contain;
+            background-image: linear-gradient(rgba(18, 18, 18, 0) 10vw, rgb(18, 18, 18) 46.875vw), linear-gradient(to left, rgba(18, 18, 18, 0.7), rgba(18, 18, 18, 0) 50%), 
+            url(${props['imageUrl']});
+        `;
+    }}
+`;
 
-                {(loading !== true && data && data['coverLandscape']) && (
-                    <img src={getNamavaUrl(data['coverLandscape'])} alt={data['caption']}/>
-                )}
+const MovieDetail = ({loading, data, topMedia}) => {
+    let imageUrl;
+    if(data && data['coverLandscape']) {
+        imageUrl = getNamavaUrl(data['coverLandscape']);
+    }
+    return <MovieDetailContainer topMedia={topMedia} imageUrl={imageUrl} className={`movie-detail ${topMedia === true && 'top-media'}`}>
+            {topMedia !== true && (
+                <div className="movie-image">
 
-            </div>
+                    {(loading !== true && data && data['coverLandscape']) && (
+                        <img src={getNamavaUrl(data['coverLandscape'])} alt={data['caption']}/>
+                    )}
+
+                </div>
+            )}
             <div className="movie-detail-box">
                 {loading === true && (
                     <svg className="loading-svg" xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 44 44" fill="none">
@@ -69,6 +89,10 @@ const MovieDetail = ({loading, data}) => {
                 )}
                 {(loading !== true && data) && (
                     <React.Fragment>
+                        {topMedia === true && (
+                            <img className="logo-image" src={getNamavaUrl(data['logoImageUrl'])} alt={data['caption'] && data['caption']}/>
+
+                        )}
                         <div className="title">
                             {data['caption'] && <a href="#">{data['caption']}</a>}
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="40" viewBox="10 0 20 40"
@@ -79,9 +103,11 @@ const MovieDetail = ({loading, data}) => {
                             </svg>
                         </div>
                         <div className="detail-row">
-                            <div className="age-limitation">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="20" viewBox="0 0 30 20"><path d="M25.307 1H5.085C2.83 1 1.002 2.828 1 5.083v10.332C1 17.67 2.83 19.5 5.085 19.5h20.22c2.255-.001 4.083-1.83 4.083-4.084V5.085c.001-1.083-.43-2.122-1.195-2.888S26.4 1 25.307 1zm-14.55 10.168H8.974v1.785c-.016.494-.422.887-.917.887s-.9-.392-.917-.887V11.17H5.358c-.506 0-.917-.41-.917-.917s.41-.917.917-.917H7.14v-1.78c.016-.494.422-.887.917-.887s.9.392.917.887v1.783h1.782c.506 0 .917.41.917.917s-.41.917-.917.917zm15.15-4.138a2.54 2.54 0 0 1-2.533 2.533H21.82c-.93-.804-2.308-.804-3.238 0h-2.255v5.167c.01.335-.16.65-.45.82s-.646.17-.934 0-.46-.485-.45-.82V5.766c.016-.494.422-.887.917-.887s.9.392.916.887v1.966h2.255a.7.7 0 0 0 .7-.7V5.766c0-.506.41-.917.917-.917s.917.41.917.917v1.266a.7.7 0 0 0 .7.7h1.553a.7.7 0 0 0 .7-.7V5.766c0-.506.41-.917.917-.917s.917.41.917.917z" fill="#99c14d"></path></svg>
-                            </div>
+                            {topMedia !== true && (
+                                <div className="age-limitation">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="20" viewBox="0 0 30 20"><path d="M25.307 1H5.085C2.83 1 1.002 2.828 1 5.083v10.332C1 17.67 2.83 19.5 5.085 19.5h20.22c2.255-.001 4.083-1.83 4.083-4.084V5.085c.001-1.083-.43-2.122-1.195-2.888S26.4 1 25.307 1zm-14.55 10.168H8.974v1.785c-.016.494-.422.887-.917.887s-.9-.392-.917-.887V11.17H5.358c-.506 0-.917-.41-.917-.917s.41-.917.917-.917H7.14v-1.78c.016-.494.422-.887.917-.887s.9.392.917.887v1.783h1.782c.506 0 .917.41.917.917s-.41.917-.917.917zm15.15-4.138a2.54 2.54 0 0 1-2.533 2.533H21.82c-.93-.804-2.308-.804-3.238 0h-2.255v5.167c.01.335-.16.65-.45.82s-.646.17-.934 0-.46-.485-.45-.82V5.766c.016-.494.422-.887.917-.887s.9.392.916.887v1.966h2.255a.7.7 0 0 0 .7-.7V5.766c0-.506.41-.917.917-.917s.917.41.917.917v1.266a.7.7 0 0 0 .7.7h1.553a.7.7 0 0 0 .7-.7V5.766c0-.506.41-.917.917-.917s.917.41.917.917z" fill="#99c14d"></path></svg>
+                                </div>
+                            )}
                             {data['year'] && (
                                 <div className="detail-item">
                                     {data['year']}
@@ -106,7 +132,7 @@ const MovieDetail = ({loading, data}) => {
                                 </div>
                             )}
 
-                            {data['hit'] && (
+                            {(data['hit'] != null && data['hit'] !== 0) && (
                                 <div className="detail-item has-icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 20 20"
                                          className="t-icon-0-1-135">
@@ -149,16 +175,20 @@ const MovieDetail = ({loading, data}) => {
                                 {data['story']}
                             </div>
                         )}
-                        <ActionButtons item={data} moreButton={true} defaultButton={getDefaultButton({type: Config.itemTypes.Series})}/>
+                        <ActionButtons item={data} {...(topMedia === true ? {downloadButton: true} : {moreButton: true})} defaultButton={getDefaultButton(data)}/>
 
                         {(data['casts'] && data['casts'].length > 0) && getMediaDetailText('ستارگان', data['casts'], 3, 'cast')}
-                        {(data['directors'] && data['directors'].length > 0) && getMediaDetailText('کارگردان', data['directors'], 3, 'cast')}
-                        {(data['categories'] && data['categories'].length > 0) && getMediaDetailText('دسته بندی', data['categories'], 5, 'category')}
+                        {topMedia !== true && (
+                            <React.Fragment>
+                                {(data['directors'] && data['directors'].length > 0) && getMediaDetailText('کارگردان', data['directors'], 3, 'cast')}
+                                {(data['categories'] && data['categories'].length > 0) && getMediaDetailText('دسته بندی', data['categories'], 5, 'category')}
+                            </React.Fragment>
+                        )}
                     </React.Fragment>
                 )}
             </div>
 
-    </div>
+    </MovieDetailContainer>
 }
 
 export default MovieDetail;

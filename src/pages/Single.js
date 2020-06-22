@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useParams} from 'react-router-dom';
 import {fetchData} from "../utils/functions";
+import MovieDetail from "../components/movie/MovieDetail";
 
 const Single = () => {
     let {type, id, name} = useParams();
@@ -28,7 +29,9 @@ const Single = () => {
     return <div className="container-fluid single">
         {(state['loading'] === false && state['data'] != null) && (
             <React.Fragment>
-                Hello
+                <div className="row p-0">
+                    <MovieDetail data={state['data']} topMedia={true}/>
+                </div>
             </React.Fragment>
         )}
     </div>

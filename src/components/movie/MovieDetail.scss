@@ -35,6 +35,11 @@
             height: 100%;
         }
     }
+    .logo-image {
+        max-width: 20vw;
+        max-height: 10vw;
+        margin-bottom: 18px
+    }
     .movie-detail-box {
         position: absolute;
         top: 0;
@@ -122,6 +127,19 @@
             margin-bottom: 18px;
             font: 12px Shabnam;
             color: white;
+        }
+
+    }
+    &.top-media {
+        .detail-description {
+            font-size: 14px;
+        }
+        .title {
+            font-size: 21px;
+            font-weight: bold;
+        }
+        .movie-detail-box {
+            line-height: 1.75;
         }
 
     }
