@@ -65,6 +65,12 @@ export default {
         },
         "Preview": {
             url: "api/v1.0/medias/{{PAYLOAD_KEY}}/preview",
+        },
+        "SinglePageMovie": {
+            url: "api/v1.0/medias/{{PAYLOAD_KEY}}/single-movie"
+        },
+        "SinglePageSeries": {
+            url: "api/v1.0/medias/{{PAYLOAD_KEY}}/single-series"
         }
     }
 }
