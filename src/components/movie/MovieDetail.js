@@ -149,7 +149,7 @@ const MovieDetail = ({loading, data}) => {
                                 {data['story']}
                             </div>
                         )}
-                        <ActionButtons item={{}} moreButton={true} defaultButton={getDefaultButton({type: Config.itemTypes.Series})}/>
+                        <ActionButtons item={data} moreButton={true} defaultButton={getDefaultButton({type: Config.itemTypes.Series})}/>
 
                         {(data['casts'] && data['casts'].length > 0) && getMediaDetailText('ستارگان', data['casts'], 3, 'cast')}
                         {(data['directors'] && data['directors'].length > 0) && getMediaDetailText('کارگردان', data['directors'], 3, 'cast')}
