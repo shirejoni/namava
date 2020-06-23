@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {useParams} from 'react-router-dom';
 import {fetchData} from "../utils/functions";
 import MovieDetail from "../components/movie/MovieDetail";
+import TrailerList from "../components/list/TrailerList";
 
 const Single = () => {
     let {type, id, name} = useParams();
@@ -32,6 +33,14 @@ const Single = () => {
                 <div className="row p-0">
                     <MovieDetail data={state['data']} topMedia={true}/>
                 </div>
+                {state['data']['slideImageList'] && (
+                    <div className="row px-5">
+                        <div className="col-12">
+                            <TrailerList id={id} images={state['data']['slideImageList']}/>
+
+                        </div>
+                    </div>
+                )}
             </React.Fragment>
         )}
     </div>

@@ -1,0 +1,15 @@
+.trailer-list {
+    margin-top: -80px;
+    & > .title {
+        direction: rtl;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        box-sizing: border-box;
+        margin-bottom: 16px;
+        font: 18px Shabnam;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+    }
+}

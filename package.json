@@ -18,7 +18,8 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "real-react-lazyload": "^0.3.0",
-    "styled-components": "^5.1.0"
+    "styled-components": "^5.1.0",
+    "simple-react-lightbox": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
