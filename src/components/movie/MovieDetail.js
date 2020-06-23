@@ -2,7 +2,7 @@ import React from "react";
 import './MovieDetail.scss';
 import ActionButtons from "../ActionButtons";
 import Config from "../../config";
-import {getNamavaUrl} from "../../utils/functions";
+import {getMediaDetailText, getNamavaUrl} from "../../utils/functions";
 import styled, {css} from 'styled-components';
 function getDefaultButton(data) {
     return data['type'] !== Config.itemTypes.Series ? <div className="button-box" key={`button-${data["id"]}`}>
@@ -21,23 +21,7 @@ function getDefaultButton(data) {
     </div>;
 }
 
-function getMediaDetailText(caption, items, maxLength, keyType) {
-    let content = [];
-    if(items == null || items.length === 0) {
-        return;
-    }
-    for(let i =0; i < maxLength && i < items.length; i++) {
-        content.push(<a href="#" key={`text-${keyType}-${items[i][keyType + "Id"]}`}>{items[i][keyType + "Name"]}</a>);
-        content.push(<span key={`text-separator-${keyType}-${items[i][keyType + "Id"]}`} className="separator">-</span>);
-    }
-    content.pop();
-    return (
-        <div className="detail-row text-row">
-            <span>{caption}:</span>
-            {content}
-        </div>
-    )
-}
+
 
 const MovieDetailContainer = styled.div`
     width: 100%;

@@ -1,0 +1,27 @@
+.single {
+    direction: rtl;
+    .media-detail-latin-name {
+        font: 14px Shabnam;
+        color: white;
+        margin-bottom: 24px;
+    }
+    .media-detail-title {
+        font: 14px Shabnam;
+        color: #aaaaaa;
+        margin-bottom: 8px;
+    }
+    .media-detail-description {
+        font: 14px Shabnam;
+        color: #aaaaaa;
+        line-height: 28px;
+        margin-bottom: 30px;
+    }
+    .single-row {
+
+        .detail-row.text-row, .detail-row.text-row a {
+            font: 14px Shabnam;
+            color: white;
+            margin-bottom: 16px;
+        }
+    }
+}

@@ -2,6 +2,7 @@ import namava from "./namava";
 import Config from "../config";
 import MovieItem from "../components/MovieItem";
 import ExclusiveDubItem from "../components/ExclusiveDubItem";
+import React from "react";
 
 export function getItemUrl(item) {
     let type = 'movie';
@@ -110,4 +111,22 @@ export function getCoords(elem) {
     const left = box.left + scrollLeft - clientLeft;
 
     return { top: Math.round(top), left: Math.round(left) };
+}
+
+export  function getMediaDetailText(caption, items, maxLength, keyType, separator = '-') {
+    let content = [];
+    if(items == null || items.length === 0) {
+        return;
+    }
+    for(let i =0; i < maxLength && i < items.length; i++) {
+        content.push(<a href="#" key={`text-${keyType}-${items[i][keyType + "Id"]}`}>{items[i][keyType + "Name"] || items[i]["name"]}</a>);
+        content.push(<span key={`text-separator-${keyType}-${items[i][keyType + "Id"]}`} className="separator">{separator}</span>);
+    }
+    content.pop();
+    return (
+        <div className="detail-row text-row">
+            <span>{caption}: </span>
+            {content}
+        </div>
+    )
 }
