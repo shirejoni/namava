@@ -5,6 +5,8 @@ import MovieDetail from "../components/movie/MovieDetail";
 import TrailerList from "../components/list/TrailerList";
 import './Single.scss';
 import Config from "../config";
+import PersonItem from "../components/PersonItem";
+import MultiLineList from "../components/list/MultiLineList";
 const Single = () => {
     let {type, id, name} = useParams();
     let [state, setState] = useState({
@@ -70,6 +72,17 @@ const Single = () => {
                             getMediaDetailText('زیرنویس', state['data']['subtitleList'], 10, 'language', ' ، ')
                         )}
                     </div>
+                </div>
+                <div className="row">
+                    {(state['data']['casts'] && state['data']['casts'].length > 0) && (
+                        <MultiLineList data={{
+                            payloadType: "PersonList",
+                            payloadKey: id,
+                            items: state['data']['casts'],
+                            key: 'castId',
+                            slug: 'castRole'
+                        }} preview={false} ItemComponent={PersonItem} placeholder={false}/>
+                    )}
                 </div>
             </React.Fragment>
         )}

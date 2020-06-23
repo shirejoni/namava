@@ -1,0 +1,43 @@
+.person-item {
+    padding: 0 8px;
+    width: 206px;
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+    a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 15px;
+        margin-bottom: 24px;
+    }
+    .person-title {
+        margin-bottom: 4px;
+        font: 12px Shabnam;
+        color: white;
+    }
+    .person-role {
+        font: 12px Shabnam;
+        text-align: center;
+        color: #aaaaaa;
+    }
+    .person-image {
+        display: block;
+        max-width: 190px;
+        width: 100%;
+        margin-bottom: 8px;
+        padding-bottom: 100%;
+        position: relative;
+        border-radius: 5px;
+        overflow: hidden;
+        img {
+            top: 0;
+            left: 0;
+            padding: 10px;
+            position: absolute;
+            width: 100%;
+            border-radius: 50%;
+        }
+    }
+}

@@ -1,0 +1,20 @@
+.single-row {
+    direction: rtl;
+    width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+    .list-container {
+        overflow: hidden;
+        display: flex;
+        margin: 0 auto;
+        box-sizing: border-box;
+        padding: 0 43px 0 0px;
+    }
+    .row {
+        width: 100%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: start;
+        align-items: center;
+    }
+}
