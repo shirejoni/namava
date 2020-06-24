@@ -7,6 +7,7 @@ import './Single.scss';
 import Config from "../config";
 import PersonItem from "../components/PersonItem";
 import MultiLineList from "../components/list/MultiLineList";
+import MovieItem from "../components/MovieItem";
 const Single = () => {
     let {type, id, name} = useParams();
     let [state, setState] = useState({
@@ -83,6 +84,16 @@ const Single = () => {
                             slug: 'castRole'
                         }} preview={false} ItemComponent={PersonItem} placeholder={false}/>
                     )}
+                </div>
+                <div className="row">
+                    <MultiLineList data={{
+                        payloadType: "SinglePageRelated",
+                        payloadKey: id,
+                        options: {
+                            categoryId: (state['data']['categories'] && state['data']['categories'].length > 0) ? state['data']['categories'][0]['categoryId'] : undefined,
+                        },
+                        maxItems: 14
+                    }} preview={true} ItemComponent={MovieItem} placeholder={false}/>
                 </div>
             </React.Fragment>
         )}

@@ -30,7 +30,7 @@ let multiLinListReducer = (state, action) => {
 }
 
 
-const MultiLineList = React.forwardRef(({className, data: {payloadType, payloadKey, title, items: defaultItems, key, slug, maxItems}, ItemComponent, placeholder = false, preview = false}, ref) => {
+const MultiLineList = React.forwardRef(({className, data: {payloadType, payloadKey, title, items: defaultItems, key, slug, maxItems, options = {}}, ItemComponent, placeholder = false, preview = false}, ref) => {
     let initialState = {
         items: defaultItems || [],
         loading: false,
@@ -49,7 +49,7 @@ const MultiLineList = React.forwardRef(({className, data: {payloadType, payloadK
                 if(isLoading) {
                     dispatch({type: types.SET_LOADING, loading: isLoading});
                 }
-            });
+            }, options);
         }
     }, [payloadKey, payloadType, placeholder, fetchRequest, dispatch, items.length, loading, error]);
 
