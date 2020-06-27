@@ -78,6 +78,9 @@ export default {
             pi: 1,
             ps: 20,
         },
+        "SinglePageSeasons": {
+            url: "api/v1.0/medias/seasons/{{PAYLOAD_KEY}}/episodes",
+        },
         "Comments": {
             url: "api/v1.0/comments",
             mediaId: undefined,

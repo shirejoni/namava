@@ -7,6 +7,7 @@ const types = {
     "SET_ITEMS": "SET_ITEMS",
     "SET_ERROR": "SET_ERROR",
     "SET_FETCH_REQUEST": "SET_FETCH_REQUEST",
+    "SET_ITEMS_AND_ITEMS_PROPS": "SET_ITEMS_AND_ITEMS_PROPS",
 }
 
 let multiLinListReducer = (state, action) => {
@@ -16,6 +17,9 @@ let multiLinListReducer = (state, action) => {
             break;
         case types.SET_ITEMS:
             state = {...state, error: false, items: action.items, loading: false};
+            break;
+        case types.SET_ITEMS_AND_ITEMS_PROPS:
+            state = {...state, error: false, items: action.items, loading: false, itemsProps: action.itemsProps};
             break;
         case types.SET_ERROR:
             state = {...state, items: [], error: action.error, loading: false};
@@ -30,12 +34,13 @@ let multiLinListReducer = (state, action) => {
 }
 
 
-const MultiLineList = React.forwardRef(({className, data: {payloadType, payloadKey, title, items: defaultItems, key = "id", slug, maxItems, options = {}}, ItemComponent, placeholder = false, preview = false}, ref) => {
+const MultiLineList = React.forwardRef(({className, data: {payloadType, payloadKey, title, items: defaultItems, key = "id", slug, maxItems, options = {}, perRow = 7}, ItemComponent, placeholder = false, preview = false}, ref) => {
     let initialState = {
         items: defaultItems || [],
         loading: false,
         error: false,
         fetchRequest: false,
+        itemsProps: defaultItems ? payloadKey : false,
     }
     let [state, dispatch] = useReducer(multiLinListReducer, initialState, (initState) => initState);
     let {items, loading, error, fetchRequest} = state;
@@ -50,6 +55,9 @@ const MultiLineList = React.forwardRef(({className, data: {payloadType, payloadK
                     dispatch({type: types.SET_LOADING, loading: isLoading});
                 }
             }, options);
+        }else if(state['itemsProps'] !== false && state['itemsProps'] !== payloadKey) {
+            dispatch({type: types.SET_ITEMS_AND_ITEMS_PROPS, items: defaultItems, itemsProps: payloadKey});
+
         }
     }, [payloadKey, payloadType, placeholder, fetchRequest, dispatch, items.length, loading, error]);
 
@@ -66,7 +74,7 @@ const MultiLineList = React.forwardRef(({className, data: {payloadType, payloadK
         }
         for(let i = 0; i < max; i++) {
             rowItems[z++] = items[i];
-            if(z === 7 || i + 1 === max) {
+            if(z === perRow || i + 1 === max) {
                 rows.push(<SingleRowList row={row++} key={`single-row-${payloadType}-${payloadKey}-${key}-${row}`} data={{
                     payloadType,
                     payloadKey,
