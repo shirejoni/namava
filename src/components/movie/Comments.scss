@@ -1,0 +1,86 @@
+.comments {
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    .comments-header {
+        font: 18px Shabnam;
+        color: white;
+        margin-bottom: 16px;
+    }
+    .comments-container {
+        background-color: #222327;
+        border-radius: 5px;
+        padding: 40px 24px;
+
+    }
+    .comment {
+        display: flex;
+        align-items: start;
+        svg {
+            width: 40px;
+            height: 40px;
+            .svg-c1 {
+                fill: white;
+            }
+        }
+        .comment-container {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            margin-top: 10px;
+            margin-right: 20px;
+            border-bottom: solid 1px #37383e;
+        }
+
+        &:last-child .comment-container {
+            border-bottom: none;
+        }
+        .comment-header {
+            font: 13px Shabnam;
+            margin-bottom: 16px;
+            color: #aaaaaa;
+        }
+        .comment-description {
+            font: 12px Shabnam;
+            color: white;
+            margin-bottom: 20px;
+        }
+        .comment-vote {
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            svg {
+                margin-left: 8px;
+                cursor: pointer;
+            }
+            span {
+                margin-left: 32px;
+                color: #aaaaaa;
+                font: 12px Shabnam;
+            }
+        }
+
+    }
+    .more-button {
+        cursor: pointer;
+        margin: 80px auto 0 auto;
+        width: 215px;
+        font: 12px Shabnam;
+        color: white;
+        text-align: center;
+        line-height: 40px;
+        border: 1px solid white;
+        border-radius: 5px;
+        padding: 0 20px;
+        &:hover {
+            background-color: white;
+            color: #37383e;
+        }
+    }
+
+}

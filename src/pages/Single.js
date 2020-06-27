@@ -8,6 +8,7 @@ import Config from "../config";
 import PersonItem from "../components/PersonItem";
 import MultiLineList from "../components/list/MultiLineList";
 import MovieItem from "../components/MovieItem";
+import Comments from "../components/movie/Comments";
 const Single = () => {
     let {type, id, name} = useParams();
     let [state, setState] = useState({
@@ -95,6 +96,7 @@ const Single = () => {
                         maxItems: 14
                     }} preview={true} ItemComponent={MovieItem} placeholder={false}/>
                 </div>
+                <Comments mediaId={id}/>
             </React.Fragment>
         )}
     </div>

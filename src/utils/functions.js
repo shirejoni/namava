@@ -45,7 +45,10 @@ export const fetchData = async (payloadKey, payloadType, onSuccess, onError, set
     console.log(options);
     for(let key in section) {
         if(key !== 'url') {
-            params[key] = options[key] || section[key] || undefined;
+            params[key] = options[key];
+            if(params[key] === undefined && section[key] !== undefined) {
+                params[key] = section[key];
+            }
         }
     }
     let {data: {succeeded, result, error}} = await namava.get(url, {
