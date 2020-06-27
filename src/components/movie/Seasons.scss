@@ -1,0 +1,70 @@
+.seasons {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    .season-select-container {
+        margin-bottom: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        .seasons-select {
+            position: relative;
+            .season-selector-button {
+                background: white;
+                color: #37383e;
+                padding: 10px 20px 10px 10px;
+                border-radius: 8px;
+                display: flex;
+                align-items: center;
+                font: 16px Shabnam;
+                svg {
+                    margin: 0 10px;
+                    fill: #37383e;
+                }
+                cursor: pointer;
+                &:hover {
+                    background-color: #1993ff;
+                    color: white;
+                    svg {
+                        fill: white;
+                    }
+                }
+            }
+        }
+        .seasons-list {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 8px;
+            display: flex;
+            z-index: 1000;
+            flex-direction: column;
+            align-items: stretch;
+            & > li {
+                white-space: nowrap;
+                min-width: 100px;
+                background: white;
+                color: #37383e;
+                padding: 17px 50px 17px 50px;
+                border-radius: 8px;
+                font: 16px Shabnam;
+                text-align: center;
+                cursor: pointer;
+                &:hover {
+                    color: #1993ff;
+                }
+            }
+        }
+    }
+
+}
+
+
+
+.negative-margin .seasons {
+    margin-top: -80px;
+}

@@ -9,6 +9,7 @@ import PersonItem from "../components/PersonItem";
 import MultiLineList from "../components/list/MultiLineList";
 import MovieItem from "../components/MovieItem";
 import Comments from "../components/movie/Comments";
+import Seasons from "../components/movie/Seasons";
 const Single = () => {
     let {type, id, name} = useParams();
     let [state, setState] = useState({
@@ -38,8 +39,15 @@ const Single = () => {
                 <div className="row p-0">
                     <MovieDetail data={state['data']} topMedia={true}/>
                 </div>
+                {state['data']['seasons'] && (
+                    <div className="row">
+                        <div className="col-12 px-5 negative-margin">
+                            <Seasons seasons={state['data']['seasons']}/>
+                        </div>
+                    </div>
+                )}
                 {state['data']['slideImageList'] && (
-                    <div className="row px-5">
+                    <div className={`row px-5 ${state['data']['seasons'] ? '' : 'negative-margin'}`}>
                         <div className="col-12">
                             <TrailerList id={id} images={state['data']['slideImageList']}/>
 
