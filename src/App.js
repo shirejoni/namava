@@ -5,15 +5,18 @@ import './style.scss';
 import Provider from "./utils/Provider";
 import 'flickity/dist/flickity.min.css';
 import Single from "./pages/Single";
+import List from "./pages/List";
 function App() {
     return (
         <BrowserRouter>
             <Provider>
                 <Switch>
-
-                    <Route path="/" exact>
-                        <Home/>
-                    </Route>
+                    <Route path="/" exact component={({location}) => {
+                        if(location['state'] && location['state']['showList'] === true) {
+                            return <List />;
+                        }
+                        return <Home/>;
+                    }}/>
                     <Route path={'/:type/:id([0-9]+):name'} exact={true} component={Single}/>
                 </Switch>
             </Provider>

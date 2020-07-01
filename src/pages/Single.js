@@ -34,7 +34,7 @@ const Single = () => {
 
     console.log("Single Page", type, id, name, state);
     return <div className="container-fluid single">
-        {(state['loading'] === false && state['data'] != null) && (
+        {(state['loading'] === false && state['data'] != null && state['id'] === id) && (
             <React.Fragment>
                 <div className="row p-0">
                     <MovieDetail data={state['data']} topMedia={true}/>
