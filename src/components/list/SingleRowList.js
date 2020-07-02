@@ -1,9 +1,9 @@
 import React, { useState} from "react";
 import PreviewItem from "../movie/PreviewItem";
 import './SingleRowList.scss';
+import {RealLazyLoad} from 'real-react-lazyload';
 
-
-const SingleRowList = React.forwardRef(({className, data: {payloadType, payloadKey, items, key, slug}, ItemComponent, placeholder = false, preview = false, row }, ref) => {
+const SingleRowList = React.forwardRef(({className, data: {payloadType, payloadKey, items, key, slug}, showMore = false, showMoreCallback, ItemComponent, placeholder = false, preview = false, row }, ref) => {
 
 
     let [previewState, setPreviewState] = useState({
@@ -37,6 +37,22 @@ const SingleRowList = React.forwardRef(({className, data: {payloadType, payloadK
             console.log(items, items[0][key], `single-row-item-${payloadType}-${payloadKey}-${items[0][key]}`);
             content = items.map(item => (<ItemComponent className={((item[key]) === previewState['id']) && previewState['active'] ? 'active' : ''} key={`single-row-item-${payloadType}-${payloadKey}-${item[key]}-${item[slug]}`}
                                                         togglePreview={togglePreview} item={item}/>))
+        }
+        if(showMore === true) {
+            content.push(
+                <RealLazyLoad key={`show-more-real-lazy-load`} placeholder={<div key={`single-row-item-${payloadType}-${payloadKey}-placeholder`}>
+                    <ItemComponent placeholder={true}/>
+                </div>} componentEntryCallback={() => {
+                    if(typeof showMoreCallback === "function") {
+                        showMoreCallback();
+                    }
+                    return true;
+                }}>
+                    <div key={`single-row-item-${payloadType}-${payloadKey}-placeholder`}>
+                        <ItemComponent placeholder={true}/>
+                    </div>
+                </RealLazyLoad>
+            )
         }
         return content;
     }

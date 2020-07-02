@@ -99,7 +99,11 @@ const MultiLineList = React.forwardRef(({className, data: {payloadType, payloadK
         for(let i = 0; i < max; i++) {
             rowItems[z++] = items[i];
             if(z === perRow || i + 1 === max) {
-                rows.push(<SingleRowList row={row++} key={`single-row-${payloadType}-${payloadKey}-${key}-${row}`} data={{
+                rows.push(<SingleRowList showMoreCallback={() => {
+                    if(state['showMore'] === true) {
+                        fetchNextData(state['pi'] + 1);
+                    }
+                }} showMore={i + 1 === max ? state['showMore'] : false} row={row++} key={`single-row-${payloadType}-${payloadKey}-${key}-${row}`} data={{
                     payloadType,
                     payloadKey,
                     items: rowItems,
@@ -125,16 +129,7 @@ const MultiLineList = React.forwardRef(({className, data: {payloadType, payloadK
             {canIRender && (
                 getRows()
             )}
-            {(state['showMore'] === true && state['loading'] ===false) && (
-                <RealLazyLoad componentEntryCallback={() => {
-                    if(state['showMore'] === true && state['loading'] !== true) {
-                        fetchNextData(state['pi'] + 1);
-                    }
-                    return true;
-                }}>
 
-                </RealLazyLoad>
-            )}
         </div>
     )
 });
