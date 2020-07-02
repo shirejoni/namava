@@ -3,6 +3,7 @@ import {fetchData} from "../../utils/functions";
 import './MultiLineList.scss';
 import {RealLazyLoad} from 'real-react-lazyload';
 import SingleRowList from "./SingleRowList";
+import Config from "../../config";
 const types = {
     "SET_LOADING": "SET_LOADING",
     "SET_ITEMS": "SET_ITEMS",
@@ -17,7 +18,14 @@ let multiLinListReducer = (state, action) => {
             state = {...state, loading: true};
             break;
         case types.SET_ITEMS:
-            state = {...state, error: false, items: action.items, loading: false};
+            state = {...state,
+                error: false,
+                items: action.items,
+                loading: false,
+                pi: action.pi,
+                showMore: action.showMore !== undefined ? action.showMore : state['showMore'],
+                fetchRequest: action.fetchRequest !== undefined ? action.fetchRequest : state['fetchRequest'],
+            };
             break;
         case types.SET_ITEMS_AND_ITEMS_PROPS:
             state = {...state, error: false, items: action.items, loading: false, itemsProps: action.itemsProps};
@@ -35,35 +43,49 @@ let multiLinListReducer = (state, action) => {
 }
 
 
-const MultiLineList = React.forwardRef(({className, data: {payloadType, payloadKey, title, items: defaultItems, showMore = false, key = "id", slug, maxItems, options = {}, perRow = 7}, firstRequest = false, ItemComponent, placeholder = false, preview = false}, ref) => {
+const MultiLineList = React.forwardRef(({className, data: {payloadType, payloadKey, title, items: defaultItems, showMore = false, pi, key = "id", slug, maxItems, options = {}, perRow = 7}, firstRequest = false, ItemComponent, placeholder = false, preview = false}, ref) => {
     let initialState = {
         items: defaultItems || [],
         loading: false,
         error: false,
         showMore: showMore,
         fetchRequest: firstRequest,
+        pi: pi,
         itemsProps: defaultItems ? payloadKey : false,
     }
     let [state, dispatch] = useReducer(multiLinListReducer, initialState, (initState) => initState);
     let {items, loading, error, fetchRequest} = state;
     useEffect(() => {
         if((fetchRequest) && (items.length === 0 && loading === false && error === false)) {
-            fetchData(payloadKey, payloadType, (result) => {
-                dispatch({type: types.SET_ITEMS, items: result});
-            }, (error) => {
-                dispatch({type: types.SET_ERROR, error});
-            }, (isLoading) => {
-                if(isLoading) {
-                    dispatch({type: types.SET_LOADING, loading: isLoading});
-                }
-            }, options);
+            fetchNextData(state['pi'] !== undefined ? state['pi'] + 1: undefined);
         }else if(state['itemsProps'] !== false && state['itemsProps'] !== payloadKey) {
             dispatch({type: types.SET_ITEMS_AND_ITEMS_PROPS, items: defaultItems, itemsProps: payloadKey});
 
         }
     }, [payloadKey, payloadType, placeholder, fetchRequest, dispatch, items.length, loading, error]);
 
-
+    const fetchNextData = (pi) => {
+        let ps = 10;
+        let section = Config.sections[payloadType];
+        if(section && section['ps'] !== undefined) {
+            ps = section['ps'];
+        }
+        fetchData(payloadKey, payloadType, (result) => {
+            dispatch({
+                type: types.SET_ITEMS,
+                items: [...state['items'], ...result],
+                pi: pi,
+                showMore: (result && result.length) >= ps ? state['showMore'] : false,
+                fetchRequest: (result && result.length) >= ps ? state['fetchRequest'] : false,
+            });
+        }, (error) => {
+            dispatch({type: types.SET_ERROR, error});
+        }, (isLoading) => {
+            if(isLoading) {
+                dispatch({type: types.SET_LOADING, loading: isLoading});
+            }
+        }, {...options, pi});
+    }
 
     const getRows = () => {
         let rows = [];
@@ -92,7 +114,7 @@ const MultiLineList = React.forwardRef(({className, data: {payloadType, payloadK
         return rows;
     }
 
-    let canIRender = items.length > 0 && error === false && loading === false;
+    let canIRender = items.length > 0 && error === false;
     return (
         <div ref={ref} className={`multi-list col-12 p-0 ${className}`}>
             {title && (
@@ -103,10 +125,12 @@ const MultiLineList = React.forwardRef(({className, data: {payloadType, payloadK
             {canIRender && (
                 getRows()
             )}
-            {state['showMore'] === true && (
+            {(state['showMore'] === true && state['loading'] ===false) && (
                 <RealLazyLoad componentEntryCallback={() => {
-                    console.log("Seen");
-                    return false;
+                    if(state['showMore'] === true && state['loading'] !== true) {
+                        fetchNextData(state['pi'] + 1);
+                    }
+                    return true;
                 }}>
 
                 </RealLazyLoad>

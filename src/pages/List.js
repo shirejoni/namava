@@ -14,7 +14,8 @@ const List = ({data: {payloadType, payloadKey, items, title, option}, showMore})
                 items,
                 title,
                 option,
-                showMore
+                showMore,
+                pi: items !== undefined ? 1 : 0,
             }} preview={true} ItemComponent={itemComponent}/>
         </div>
     </div>
