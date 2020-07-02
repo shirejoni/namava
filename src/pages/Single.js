@@ -102,7 +102,7 @@ const Single = () => {
                             categoryId: (state['data']['categories'] && state['data']['categories'].length > 0) ? state['data']['categories'][0]['categoryId'] : undefined,
                         },
                         maxItems: 14
-                    }} preview={true} ItemComponent={MovieItem} placeholder={false}/>
+                    }} preview={true} firstRequest={true} ItemComponent={MovieItem} />
                 </div>
                 <Comments mediaId={id}/>
             </React.Fragment>

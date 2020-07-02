@@ -1,11 +1,21 @@
 import React from "react";
 import {useLocation} from 'react-router-dom';
-const List = () => {
+import MultiLineList from "../components/list/MultiLineList";
+import {getItemComponent} from "../utils/functions";
+const List = ({data: {payloadType, payloadKey, items, title, option}, showMore}) => {
     let location = useLocation();
+    let itemComponent = getItemComponent(payloadType);
     console.log("List", location);
     return <div className="list container-fluid">
         <div className="row p-0">
-            List
+            <MultiLineList data={{
+                payloadType,
+                payloadKey,
+                items,
+                title,
+                option,
+                showMore
+            }} preview={true} ItemComponent={itemComponent}/>
         </div>
     </div>
 }

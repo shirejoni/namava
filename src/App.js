@@ -13,7 +13,7 @@ function App() {
                 <Switch>
                     <Route path="/" exact component={({location}) => {
                         if(location['state'] && location['state']['showList'] === true) {
-                            return <List />;
+                            return <List {...location['state']} />;
                         }
                         return <Home/>;
                     }}/>

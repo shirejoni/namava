@@ -1,6 +1,7 @@
 import React, { useEffect, useReducer} from "react";
 import {fetchData} from "../../utils/functions";
 import './MultiLineList.scss';
+import {RealLazyLoad} from 'real-react-lazyload';
 import SingleRowList from "./SingleRowList";
 const types = {
     "SET_LOADING": "SET_LOADING",
@@ -34,18 +35,19 @@ let multiLinListReducer = (state, action) => {
 }
 
 
-const MultiLineList = React.forwardRef(({className, data: {payloadType, payloadKey, title, items: defaultItems, key = "id", slug, maxItems, options = {}, perRow = 7}, ItemComponent, placeholder = false, preview = false}, ref) => {
+const MultiLineList = React.forwardRef(({className, data: {payloadType, payloadKey, title, items: defaultItems, showMore = false, key = "id", slug, maxItems, options = {}, perRow = 7}, firstRequest = false, ItemComponent, placeholder = false, preview = false}, ref) => {
     let initialState = {
         items: defaultItems || [],
         loading: false,
         error: false,
-        fetchRequest: false,
+        showMore: showMore,
+        fetchRequest: firstRequest,
         itemsProps: defaultItems ? payloadKey : false,
     }
     let [state, dispatch] = useReducer(multiLinListReducer, initialState, (initState) => initState);
     let {items, loading, error, fetchRequest} = state;
     useEffect(() => {
-        if((fetchRequest || placeholder === false) && (items.length === 0 && loading === false && error === false)) {
+        if((fetchRequest) && (items.length === 0 && loading === false && error === false)) {
             fetchData(payloadKey, payloadType, (result) => {
                 dispatch({type: types.SET_ITEMS, items: result});
             }, (error) => {
@@ -100,6 +102,14 @@ const MultiLineList = React.forwardRef(({className, data: {payloadType, payloadK
             )}
             {canIRender && (
                 getRows()
+            )}
+            {state['showMore'] === true && (
+                <RealLazyLoad componentEntryCallback={() => {
+                    console.log("Seen");
+                    return false;
+                }}>
+
+                </RealLazyLoad>
             )}
         </div>
     )
