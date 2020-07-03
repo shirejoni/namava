@@ -1,12 +1,13 @@
 import React from "react";
 import {ImageRealLazyLoad} from 'real-react-lazyload';
-import {getNamavaUrl} from "../utils/functions";
+import {getItemUrl, getNamavaUrl} from "../utils/functions";
 import './BannerItem.scss'
+import {Link} from "react-router-dom";
 const BannerItem = ({item, placeholder = false}) => {
 
     return (
         <div className="banner-item">
-            <a href="#" target="_blank">
+            <Link to={placeholder === false ? getItemUrl(item, true) : "#"}>
                 <div className="banner-image">
                     {placeholder === false && (
                         <ImageRealLazyLoad src={getNamavaUrl(item['imageUrl'])} alt={item['caption']}/>
@@ -15,7 +16,7 @@ const BannerItem = ({item, placeholder = false}) => {
                 <div className="item-title">
                     {placeholder === false && item['caption']}
                 </div>
-            </a>
+            </Link>
         </div>
     )
 }

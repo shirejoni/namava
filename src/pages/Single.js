@@ -46,7 +46,7 @@ const Single = () => {
                         </div>
                     </div>
                 )}
-                {state['data']['slideImageList'] && (
+                {(state['data']['slideImageList'] && state['data']['slideImageList'].length > 0) && (
                     <div className={`row px-5 ${state['data']['seasons'] ? '' : 'negative-margin'}`}>
                         <div className="col-12">
                             <TrailerList id={id} images={state['data']['slideImageList']}/>
