@@ -6,6 +6,7 @@ import Provider from "./utils/Provider";
 import 'flickity/dist/flickity.min.css';
 import Single from "./pages/Single";
 import List from "./pages/List";
+import Collection from "./pages/Collection";
 function App() {
     return (
         <BrowserRouter>
@@ -18,6 +19,7 @@ function App() {
                         return <Home/>;
                     }}/>
                     <Route path={'/:type/:id([0-9]+):name'} exact={true} component={Single}/>
+                    <Route path={'/collection-:id([0-9]+)-:name'} exact={true} component={Collection}/>
                 </Switch>
             </Provider>
 
