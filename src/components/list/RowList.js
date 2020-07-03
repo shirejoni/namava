@@ -34,18 +34,18 @@ let rowListReducer = (state, action) => {
 }
 
 
-const RowList = React.forwardRef(({className, data: {payloadType, payloadKey, title, items: defaultItems}, ItemComponent, placeholder = false, preview = false}, ref) => {
+const RowList = React.forwardRef(({className, data: {payloadType, payloadKey, title, items: defaultItems}, firstRequest = false, ItemComponent, placeholder = false, preview = false}, ref) => {
     let flickityRef = createRef();
     let initialState = {
         items: defaultItems || [],
         loading: false,
         error: false,
-        fetchRequest: false,
+        fetchRequest: firstRequest,
     }
     let [state, dispatch] = useReducer(rowListReducer, initialState, (initState) => initState);
     let {items, loading, error, fetchRequest} = state;
     useEffect(() => {
-        if((fetchRequest || placeholder === false) && (items.length === 0 && loading === false && error === false)) {
+        if((fetchRequest) && (items.length === 0 && loading === false && error === false)) {
             fetchData(payloadKey, payloadType, (result) => {
                 dispatch({type: types.SET_ITEMS, items: result});
             }, (error) => {

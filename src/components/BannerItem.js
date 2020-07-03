@@ -7,7 +7,7 @@ const BannerItem = ({item, placeholder = false}) => {
 
     return (
         <div className="banner-item">
-            <Link to={placeholder === false ? getItemUrl(item, true) : "#"}>
+            <Link to={placeholder === false ? getItemUrl(item, "Collection") : "#"}>
                 <div className="banner-image">
                     {placeholder === false && (
                         <ImageRealLazyLoad src={getNamavaUrl(item['imageUrl'])} alt={item['caption']}/>

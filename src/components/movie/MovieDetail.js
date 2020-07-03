@@ -73,7 +73,7 @@ const MovieDetail = ({loading, data, topMedia}) => {
                 )}
                 {(loading !== true && data) && (
                     <React.Fragment>
-                        {topMedia === true && (
+                        {topMedia === true && data['logoImageUrl'] != null && (
                             <img className="logo-image" src={getNamavaUrl(data['logoImageUrl'])} alt={data['caption'] && data['caption']}/>
 
                         )}

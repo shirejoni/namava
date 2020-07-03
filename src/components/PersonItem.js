@@ -1,7 +1,8 @@
 import React from "react";
-import {getNamavaUrl} from "../utils/functions";
+import {getItemUrl, getNamavaUrl} from "../utils/functions";
 import Config from '../config';
 import './PersonItem.scss';
+import {Link} from "react-router-dom";
 const getRoleName = (role) => {
     switch (role) {
         case "Actor":
@@ -24,7 +25,7 @@ const PersonItem = ({item, placeholder = false}) => {
         imageUrl = Config.defaultImage;
     }
     return <div className="person-item">
-        <a href="#">
+        <Link to={placeholder === false ? getItemUrl(item, "Person") : "#"}>
             <div className="person-image">
                 {placeholder === false && (
                     <img src={imageUrl} alt={item['castName']}/>
@@ -36,7 +37,7 @@ const PersonItem = ({item, placeholder = false}) => {
             <div className="person-role">
                 {getRoleName(item['castRole'])}
             </div>
-        </a>
+        </Link>
     </div>
 }
 
