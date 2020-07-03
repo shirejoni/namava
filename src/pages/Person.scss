@@ -1,0 +1,30 @@
+.person-detail-container {
+    direction: rtl;
+    padding: 0 43px;
+    margin-bottom: 48px;
+    display: flex;
+    justify-content: start;
+    & > img.person-detail-image {
+        align-self: center;
+        max-width: 180px;
+        border-radius: 50%;
+    }
+    .person-info {
+        align-self: center;
+        padding: 0 16px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: stretch;
+        .person-title {
+            font: 24px Shabnam;
+            margin-bottom: 18px;
+            color: white;
+        }
+        .person-description {
+            font: 14px Shabnam;
+            color: white;
+        }
+    }
+}

@@ -35,7 +35,7 @@ const MovieItem = ({className, item, placeholder = false, togglePreview}) => {
             if(placeholder !== false) {
                 return false;
             }
-            togglePreview(item['id'] || item['seriesId']);
+            togglePreview(item['id'] || item['seriesId'] || item['mediaId']);
         }}>
             <div className="item-image" onMouseOver={onHoverItem}>
                 {placeholder === false && (
