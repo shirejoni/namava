@@ -1,8 +1,37 @@
 import React, {useEffect, useRef} from "react";
 import './TopMenu.scss';
 import {Link} from "react-router-dom";
+import {types, useMenus} from "../context/MenusContext";
+import namava from "../utils/namava";
+
+const fetchMenus = async (dispatch) => {
+    dispatch({type: types.SET_LOADING})
+    let {data: {succeeded, result, error}} = await namava.get('api/v1.0/menus');
+    if(succeeded === true && error == null) {
+        let homePageIndex = result.findIndex(item => item['slug'] === "index");
+        let home = {};
+        if(homePageIndex > -1) {
+            home = result[homePageIndex];
+        }
+        dispatch({
+            type: types.SET_DATA,
+            home: home,
+            data: result,
+        });
+    }else {
+        dispatch({type: types.SET_ERRORS, errors: error});
+    }
+}
 
 const TopMenu = () => {
+
+    let {state: menus, dispatch} = useMenus();
+
+    useEffect(() => {
+        if(menus.loading === false && menus.succeeded === false && menus.errors.length === 0) {
+            fetchMenus(dispatch);
+        }
+    }, [dispatch, menus]);
 
     let windowPageOffserRef = useRef(window.pageYOffset);
     let topMenuRef = useRef(null);
@@ -31,6 +60,14 @@ const TopMenu = () => {
         }
     })
 
+    let topMenu;
+    let topMenuItems = []
+    if(menus['data'] != null && menus['loading'] === false) {
+        topMenu = menus['data'].find(menuItem => menuItem['slug'] === "TopMenu");
+        topMenuItems = menus['data'].filter(menuItem => menuItem['parentId'] === topMenu['menuId']);
+    }
+
+
     return <div className="top-menu" ref={topMenuRef}>
         <div className="logo">
             <svg xmlns="http://www.w3.org/2000/svg" width="47" height="30" viewBox="0 0 47 30"
@@ -40,8 +77,9 @@ const TopMenu = () => {
             </svg>
         </div>
         <nav className="nav">
-            <Link to={"#"} className="nav-item">خانه</Link>
-            <Link to={"#"} className="nav-item">فیلم</Link>
+            {topMenuItems.map(topMenuItem => (
+                <Link key={`top-menu-item-${topMenuItem['menuId']}`} to={topMenuItem['slug'] === 'index' ? "/" : topMenuItem['slug']} className="nav-item">{topMenuItem['caption']}</Link>
+            ))}
         </nav>
         <a href="#" className="search-button">
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"
