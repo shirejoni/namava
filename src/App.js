@@ -8,21 +8,29 @@ import Single from "./pages/Single";
 import List from "./pages/List";
 import Collection from "./pages/Collection";
 import Person from "./pages/Person";
+import TopMenu from "./components/TopMenu";
 function App() {
     return (
         <BrowserRouter>
             <Provider>
-                <Switch>
-                    <Route path="/" exact component={({location}) => {
-                        if(location['state'] && location['state']['showList'] === true) {
-                            return <List {...location['state']} />;
-                        }
-                        return <Home/>;
-                    }}/>
-                    <Route path={'/:type/:id([0-9]+):name'} exact={true} component={Single}/>
-                    <Route path={'/collection-:id([0-9]+)-:name'} exact={true} component={Collection}/>
-                    <Route path={'/person-:id([0-9]+)-:name'} exact={true} component={Person}/>
-                </Switch>
+                <div className="container-fluid">
+                    <div className="row p-0">
+                        <TopMenu/>
+                    </div>
+                    <div className="row p-0">
+                        <Switch>
+                            <Route path="/" exact component={({location}) => {
+                                if(location['state'] && location['state']['showList'] === true) {
+                                    return <List {...location['state']} />;
+                                }
+                                return <Home/>;
+                            }}/>
+                            <Route path={'/:type/:id([0-9]+):name'} exact={true} component={Single}/>
+                            <Route path={'/collection-:id([0-9]+)-:name'} exact={true} component={Collection}/>
+                            <Route path={'/person-:id([0-9]+)-:name'} exact={true} component={Person}/>
+                        </Switch>
+                    </div>
+                </div>
             </Provider>
 
         </BrowserRouter>

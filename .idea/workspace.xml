@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e382f227-8848-4114-ae28-724e66dbfa08" name="Default Changelist" comment="get Menus from namava">
-      <change afterPath="$PROJECT_DIR$/src/pages/List.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/TopMenu.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/TopMenu.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/list/RowList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/list/RowList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Single.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Single.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,8 +20,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="SCSS File" />
         <option value="JavaScript File" />
+        <option value="SCSS File" />
       </list>
     </option>
   </component>
@@ -141,10 +140,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1537" height="328" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1590075500261" />
-    <state width="498" height="446" key="SwitcherDM" timestamp="1593604610136">
+    <state width="498" height="446" key="SwitcherDM" timestamp="1593934030266">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="498" height="446" key="SwitcherDM/0.0.1536.824@0.0.1536.824" timestamp="1593604610136" />
+    <state width="498" height="446" key="SwitcherDM/0.0.1536.824@0.0.1536.824" timestamp="1593934030266" />
     <state x="577" y="323" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1592121998219">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
