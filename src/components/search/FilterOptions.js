@@ -1,6 +1,9 @@
 import React from "react";
 import './FilterOptions.scss';
 import OptionItem from "./OptionItem";
+import RangeSlider from "../RangeSlider";
+
+let domain = [1900, 2020];
 const FilterOptions = ({dispatch, filter}) => {
 
     let options = [];
@@ -20,7 +23,11 @@ const FilterOptions = ({dispatch, filter}) => {
     }
 
     return <div className="options-container">
-        {options}
+        {filter['type'] === 'range-slider' ? (() => {
+
+            return <RangeSlider domain={domain} onChange={() => {
+            }} />
+        })()  : options}
     </div>
 }
 

@@ -19,7 +19,8 @@
     "react-scripts": "3.4.1",
     "real-react-lazyload": "^0.5.0",
     "simple-react-lightbox": "latest",
-    "styled-components": "^5.1.0"
+    "styled-components": "^5.1.0",
+    "react-compound-slider": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
