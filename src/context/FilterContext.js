@@ -1,5 +1,6 @@
-import React, {createContext, useContext, useReducer} from "react";
+import React, {createContext, useContext, useEffect, useReducer} from "react";
 import {useMenus} from "./MenusContext";
+import {fetchData} from "../utils/functions";
 
 const FilterContext = createContext(null);
 
@@ -17,12 +18,18 @@ const initializeState = {
 
 export const types = {
     "SET_LOADING": "SET_LOADING",
+    "SET_FILTER_OPTIONS": "SET_FILTER_OPTIONS",
 }
 
 const reducer = (state, action) => {
     switch (action.type) {
         case types.SET_LOADING:
             state = {...state, loading: true};
+            break;
+        case types.SET_FILTER_OPTIONS:
+            state = {...state};
+            state['filters'][action.filterId].options = action.options;
+            state.done = action.done !== undefined ? action.done : state['done'];
             break;
         default:
             throw Error(`An unknown Action to Filter Reducer ${action.type}`);
@@ -39,7 +46,8 @@ const FilterProvider = ({children}) => {
         let filters = {
             filtersId: [],
         }
-
+        let genre = null
+        let done = true;
         if(FilterMenu) {
             let filtersMenu = menus['data'].filter(menuItem => menuItem['parentId'] === FilterMenu['menuId']);
             filtersMenu.forEach(filterMenu => {
@@ -50,6 +58,9 @@ const FilterProvider = ({children}) => {
                     options: [],
                     caption: filterMenu['caption'],
                     selected: [],
+                }
+                if(filterMenu['slug'] === "genre") {
+                    genre = filterMenu['menuId'];
                 }
             });
             menus['data'].forEach(menuItem => {
@@ -66,9 +77,15 @@ const FilterProvider = ({children}) => {
             });
 
         }
+
+        if(genre != null) {
+            done = false;
+        }
         return {
             ...init,
             filters,
+            done,
+            genre,
         }
     });
 
@@ -85,6 +102,26 @@ const useFilter = () => {
         throw Error("useSlider should be use inside FilterProvider");
     }
     let {state, dispatch} = context;
+
+    useEffect(() => {
+        if(state['genre'] != null) {
+            fetchData(state['genre'], "SearchDependency", (result) => {
+                let options = result.map(option => {
+                    return {
+                        optionId: option,
+                        caption: option,
+                        selected: false,
+                    }
+                });
+                dispatch({
+                    type: types.SET_FILTER_OPTIONS,
+                    options: options,
+                    filterId: state['genre'],
+                    done: true,
+                })
+            }, () => {}, () => {});
+        }
+    }, [state['genre']])
 
     return {
         state,
