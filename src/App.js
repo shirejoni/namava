@@ -9,6 +9,7 @@ import List from "./pages/List";
 import Collection from "./pages/Collection";
 import Person from "./pages/Person";
 import TopMenu from "./components/TopMenu";
+import OtherRoutes from "./utils/OtherRoutes";
 function App() {
     return (
         <BrowserRouter>
@@ -28,6 +29,7 @@ function App() {
                             <Route path={'/:type/:id([0-9]+):name'} exact={true} component={Single}/>
                             <Route path={'/collection-:id([0-9]+)-:name'} exact={true} component={Collection}/>
                             <Route path={'/person-:id([0-9]+)-:name'} exact={true} component={Person}/>
+                            <Route path={'*'} component={OtherRoutes}/>
                         </Switch>
                     </div>
                 </div>

@@ -19,7 +19,7 @@ let rowListReducer = (state, action) => {
             state = {...state, loading: true};
             break;
         case types.SET_ITEMS:
-            state = {...state, error: false, items: action.items, loading: false};
+            state = {...state, error: false, items: action.items, loading: false, isEmpty: action.isEmpty !== undefined ? action.isEmpty : state['isEmpty']};
             break;
         case types.SET_ERROR:
             state = {...state, items: [], error: action.error, loading: false};
@@ -41,12 +41,17 @@ const RowList = React.forwardRef(({className, data: {payloadType, payloadKey, ti
         loading: false,
         error: false,
         fetchRequest: firstRequest,
+        isEmpty: false,
     }
     let [state, dispatch] = useReducer(rowListReducer, initialState, (initState) => initState);
     let {items, loading, error, fetchRequest} = state;
     useEffect(() => {
         if((fetchRequest) && (items.length === 0 && loading === false && error === false)) {
             fetchData(payloadKey, payloadType, (result) => {
+                if(result.length === 0) {
+                    dispatch({type: types.SET_ITEMS, items: [], isEmpty: true});
+                    return;
+                }
                 dispatch({type: types.SET_ITEMS, items: result});
             }, (error) => {
                 dispatch({type: types.SET_ERROR, error});
@@ -121,49 +126,53 @@ const RowList = React.forwardRef(({className, data: {payloadType, payloadKey, ti
     let canIRender = items.length > 0 && error === false && loading === false;
     return (
         <div ref={ref} className={`row-list col-12 p-0 ${className}`}>
-            {title && (
-                <div className="row-title">
-                    <h3>{title}</h3>
-                    {state['loading'] === false && (
-                        <Link to={{
-                            pathname: "/",
-                            state: {
-                                data: {
-                                    payloadKey,
-                                    payloadType,
-                                    items,
-                                    title
-                                },
-                                showMore: true,
-                                showList: true
-                            }
-                        }} className="more-link">
-                            <span>مشاهده همه</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="40" viewBox="10 0 20 40"
-                                 className="t-icon-0-1-107">
-                                <path className="svg-c1"
-                                      d="M14.77 18.793c0-.493.196-.967.545-1.315l6.2-6.2a1.86 1.86 0 0 1 2.626 2.633l-4.88 4.882 4.88 4.88a1.86 1.86 0 0 1-2.63 2.63l-6.2-6.2c-.347-.348-.54-.82-.54-1.31z"
-                                      style={{transform: "translateY(2px)"}}></path>
-                            </svg>
-                        </Link>
+            {state['isEmpty'] !== true && (
+                <React.Fragment>
+                    {title && (
+                        <div className="row-title">
+                            <h3>{title}</h3>
+                            {state['loading'] === false && (
+                                <Link to={{
+                                    pathname: "/",
+                                    state: {
+                                        data: {
+                                            payloadKey,
+                                            payloadType,
+                                            items,
+                                            title
+                                        },
+                                        showMore: true,
+                                        showList: true
+                                    }
+                                }} className="more-link">
+                                    <span>مشاهده همه</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="40" viewBox="10 0 20 40"
+                                         className="t-icon-0-1-107">
+                                        <path className="svg-c1"
+                                              d="M14.77 18.793c0-.493.196-.967.545-1.315l6.2-6.2a1.86 1.86 0 0 1 2.626 2.633l-4.88 4.882 4.88 4.88a1.86 1.86 0 0 1-2.63 2.63l-6.2-6.2c-.347-.348-.54-.82-.54-1.31z"
+                                              style={{transform: "translateY(2px)"}}></path>
+                                    </svg>
+                                </Link>
+                            )}
+                        </div>
                     )}
-                </div>
-            )}
-            <div className="list-container" ref={flickityRef}>
-                <RealLazyLoad forceVisible={canIRender} placeholder={
-                    <RowList placeholder={true} data={{payloadKey, payloadType}} ItemComponent={ItemComponent}/>
-                } componentEntryCallback={() => {
-                    if(fetchRequest === false && loading === false) {
-                        dispatch({type: types.SET_FETCH_REQUEST});
-                    }
-                    return false;
-                }}>
-                    <div className="row">
-                        {(items.length > 0 && loading === false) && (getItems())}
+                    <div className="list-container" ref={flickityRef}>
+                        <RealLazyLoad forceVisible={canIRender} placeholder={
+                            <RowList placeholder={true} data={{payloadKey, payloadType}} ItemComponent={ItemComponent}/>
+                        } componentEntryCallback={() => {
+                            if(fetchRequest === false && loading === false) {
+                                dispatch({type: types.SET_FETCH_REQUEST});
+                            }
+                            return false;
+                        }}>
+                            <div className="row">
+                                {(items.length > 0 && loading === false) && (getItems())}
+                            </div>
+                        </RealLazyLoad>
                     </div>
-                </RealLazyLoad>
-            </div>
-            {(preview === true && canIRender) && (<PreviewItem id={previewState['id']} isActive={previewState['active']}/>)}
+                    {(preview === true && canIRender) && (<PreviewItem id={previewState['id']} isActive={previewState['active']}/>)}
+                </React.Fragment>
+            )}
         </div>
     )
 });
