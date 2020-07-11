@@ -1,0 +1,40 @@
+.filter-box {
+    display: flex;
+    justify-content: start;
+    align-items: stretch;
+    background-color: #37383e;
+    border-radius: 8px;
+    overflow: hidden;
+    .filters-tab {
+        width: 15%;
+        background-color: #37383e;
+        padding-top: 18px;
+        padding-bottom: 34px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        .filter-tab {
+            cursor: pointer;
+            padding: 11px 16px 11px 10px;
+            font: 14px Shabnam;
+            color: white;
+            display: flex;
+            align-items: center;
+            &.active {
+                background-color: #222327;
+            }
+            justify-content: space-between;
+            svg {
+                transform: rotate(90deg);
+                fill: white;
+            }
+        }
+    }
+    .filter-content {
+        flex-grow: 1;
+        background-color: #222327;
+        box-sizing: border-box;
+        border-bottom: #37383e 5px solid;
+    }
+}

@@ -1,8 +1,13 @@
 import React from "react";
 import Filter from "./Filter";
+import {useFilter} from "../../context/FilterContext";
 
 
 const SearchBox = () => {
+
+    let {state, dispatch} = useFilter();
+
+    console.log("SearchBox", state);
     return <React.Fragment>
         <div className="col-12 search-form-container">
             <div className="leave-search">
