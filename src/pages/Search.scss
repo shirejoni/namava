@@ -1,0 +1,112 @@
+
+.search {
+    width: 100%;
+    box-sizing: border-box;
+    padding-top: 80px;
+    .search-form-container {
+        display: flex;
+        padding: 0 43px;
+        .leave-search {
+            height: 60px;
+            margin-right: 24px;
+            font: 14px Shabnam;
+            line-height: 60px;
+            color: white;
+            display: flex;
+            direction: rtl;
+            align-items: center;
+            svg {
+                fill: white;
+                margin-left: 8px;
+                width: 20px;
+                height: 20px;
+            }
+        }
+        .search-box {
+            flex-grow: 1;
+            height: 60px;
+            background-color: white;
+            padding: 0 16px 0 12px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            direction: rtl;
+            input {
+                width: 95%;
+                line-height: 60px;
+                background: transparent;
+                font: 14px Shabnam;
+                color: black;
+                outline: none;
+                height: 100%;
+                padding-right: 6px;
+                border: none;
+            }
+        }
+    }
+    .search-filter-box {
+        display: flex;
+        padding: 16px 43px 0 43px;
+        direction: rtl;
+        flex-direction: column;
+        width: 100%;
+        align-items: stretch;
+        justify-content: start;
+        .filtered-buttons-row {
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            flex-wrap: wrap;
+            .toggle-filter-button {
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                padding: 10px;
+                background-color: white;
+                border-radius: 8px;
+                color: black;
+                margin-bottom: 12px;
+                font: 14px Shabnam;
+                svg {
+
+                    margin-right: 11px;
+                }
+                &.active {
+                    svg {
+                        transform: rotate(180deg);
+                    }
+                }
+                margin-left: 12px;
+            }
+            .filtered-button {
+                display: flex;
+                align-items: center;
+                padding: 10px 16px;
+                border-radius: 8px;
+                color: white;
+                font: 14px Shabnam;
+                margin-left: 12px;
+                margin-bottom: 12px;
+                background-color: #37383e;
+                cursor: pointer;
+                svg {
+                    fill: white;
+                    margin-right: 11px;
+                }
+            }
+            .clear-filtered {
+                cursor: pointer;
+                color: #D95C5C;
+                box-sizing: border-box;
+                border: 1px solid #D95C5C;
+                display: flex;
+                align-items: center;
+                padding: 10px 16px;
+                border-radius: 8px;
+                font: 14px Shabnam;
+                margin-left: 12px;
+                margin-bottom: 12px;
+            }
+        }
+    }
+}
