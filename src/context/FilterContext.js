@@ -36,9 +36,39 @@ const FilterProvider = ({children}) => {
     let [state, dispatch] = useReducer(reducer, initializeState, (init) => {
         let FilterMenu = menus['data'].find(menuItem => menuItem['slug'] === "FilterMenu");
 
+        let filters = {
+            filtersId: [],
+        }
+
+        if(FilterMenu) {
+            let filtersMenu = menus['data'].filter(menuItem => menuItem['parentId'] === FilterMenu['menuId']);
+            filtersMenu.forEach(filterMenu => {
+                filters.filtersId.push(filterMenu['menuId']);
+                filters[filterMenu['menuId']] = {
+                    filterId: filterMenu['menuId'],
+                    slug: filterMenu['slug'],
+                    options: [],
+                    caption: filterMenu['caption'],
+                    selected: [],
+                }
+            });
+            menus['data'].forEach(menuItem => {
+                let filterId = filters['filtersId'].find(fId => fId == menuItem['parentId']);
+                if(filterId != null) {
+                    filters[filterId].options.push({
+                        optionId: menuItem['menuId'],
+                        slug: menuItem['slug'],
+                        caption: menuItem['caption'],
+                        entityType: menuItem['entityType'],
+                        selected: false,
+                    });
+                }
+            });
+
+        }
         return {
             ...init,
-            filterMenu : FilterMenu,
+            filters,
         }
     });
 
