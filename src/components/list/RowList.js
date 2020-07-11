@@ -44,9 +44,9 @@ const RowList = React.forwardRef(({className, data: {payloadType, payloadKey, ti
         isEmpty: false,
     }
     let [state, dispatch] = useReducer(rowListReducer, initialState, (initState) => initState);
-    let {items, loading, error, fetchRequest} = state;
+    let {items, loading, error, isEmpty, fetchRequest} = state;
     useEffect(() => {
-        if((fetchRequest) && (items.length === 0 && loading === false && error === false)) {
+        if((fetchRequest) && (isEmpty === false && items.length === 0 && loading === false && error === false)) {
             fetchData(payloadKey, payloadType, (result) => {
                 if(result.length === 0) {
                     dispatch({type: types.SET_ITEMS, items: [], isEmpty: true});

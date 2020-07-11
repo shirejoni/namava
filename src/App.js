@@ -1,6 +1,5 @@
 import React from 'react';
 import {BrowserRouter, Route, Switch} from "react-router-dom";
-import Home from "./pages/Home";
 import './style.scss';
 import Provider from "./utils/Provider";
 import 'flickity/dist/flickity.min.css';
@@ -10,6 +9,7 @@ import Collection from "./pages/Collection";
 import Person from "./pages/Person";
 import TopMenu from "./components/TopMenu";
 import OtherRoutes from "./utils/OtherRoutes";
+import Page from "./pages/Page";
 function App() {
     return (
         <BrowserRouter>
@@ -24,7 +24,7 @@ function App() {
                                 if(location['state'] && location['state']['showList'] === true) {
                                     return <List {...location['state']} />;
                                 }
-                                return <Home/>;
+                                return <Page/>;
                             }}/>
                             <Route path={'/:type/:id([0-9]+):name'} exact={true} component={Single}/>
                             <Route path={'/collection-:id([0-9]+)-:name'} exact={true} component={Collection}/>

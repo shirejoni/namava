@@ -3,8 +3,12 @@ const pageItemsType = {
     Advertisement: "Advertisement",
     PostGroup: "PostGroup",
     Latest: "Latest",
+    LatestMovies: "LatestMovies",
+    LatestSeries: "LatestSeries",
     Favorite: "Favorite",
     LatestEpisods: "LatestEpisods",
+    ExclusiveDubsMovies: "ExclusiveDubsMovies",
+    ExclusiveDubsSeries: "ExclusiveDubsSeries",
     ExclusiveDubs: "ExclusiveDubs",
     CategoryGroup: "CategoryGroup",
     BannerGroup: "BannerGroup",
@@ -35,6 +39,16 @@ export default {
             pi: 1,
             ps: 20,
         },
+        [pageItemsType.LatestMovies]: {
+            url: "api/v1.0/medias/latest-movies",
+            pi: 1,
+            ps: 20,
+        },
+        [pageItemsType.LatestSeries]: {
+            url: "api/v1.0/medias/latest-series",
+            pi: 1,
+            ps: 20,
+        },
         [pageItemsType.LatestEpisods]: {
             url: "api/v1.0/medias/latest-episods",
             pi: 1,
@@ -47,6 +61,16 @@ export default {
         },
         [pageItemsType.ExclusiveDubs]: {
             url: "api/v1.0/medias/exclusive-dubs",
+            pi: 1,
+            ps: 20,
+        },
+        [pageItemsType.ExclusiveDubsMovies]: {
+            url: "api/v1.0/medias/exclusive-dubs-movies",
+            pi: 1,
+            ps: 20,
+        },
+        [pageItemsType.ExclusiveDubsSeries]: {
+            url: "api/v1.0/medias/exclusive-dubs-series",
             pi: 1,
             ps: 20,
         },

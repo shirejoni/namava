@@ -18,7 +18,7 @@ const Page = () => {
     let page;
     if(menus['loading'] === false && menus['data'] !== null) {
         page = menus['data'].find(menuItem => {
-            if(menuItem['slug'] === location.pathname.substr(1).toLowerCase()) {
+            if(menuItem['slug'] != "" && menuItem['slug'] === location.pathname.substr(1).toLowerCase()) {
                 return true;
             }
             if(menuItem['slug'] === "index" && location.pathname === "/") {
@@ -27,7 +27,7 @@ const Page = () => {
             return false;
         });
     }
-    console.log("Page", menus, location);
+    console.log("Page", page, location);
     return (
         <div className="container-fluid">
             <div className="row">
@@ -45,6 +45,17 @@ const Page = () => {
                         case Config.pageItemsType.PostGroup:
                             preview = true;
                             let itemComponent = getItemComponent(payloadType);
+                            if(page['slug'] === "movies") {
+                                switch (payloadType) {
+                                    case Config.pageItemsType.Latest:
+                                        payloadType = Config.pageItemsType.LatestMovies;
+                                        break;
+                                    case Config.pageItemsType.ExclusiveDubs:
+                                        payloadType = Config.pageItemsType.ExclusiveDubsMovies;
+                                        break;
+                                }
+                            }
+
                             section = <RowList preview={preview} key={`page-section-${pageItem['pageItemId']}`} data={{
                                 payloadType,
                                 payloadKey,
