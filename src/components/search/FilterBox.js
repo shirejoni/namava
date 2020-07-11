@@ -8,7 +8,7 @@ const FilterBox = () => {
         <div className="filters-tab">
             {state['filters']['filtersId'].map(filterId => {
 
-                return <div className={`filter-tab ${state['selectedTab'] === filterId && 'active'}`} onClick={() => {
+                return <div key={`filter-tab-${filterId}`} className={`filter-tab ${state['selectedTab'] === filterId && 'active'}`} onClick={() => {
                     if(state['selectedTab'] !== filterId) {
                         dispatch({
                             type: types.SET_SELECTED_TAB,

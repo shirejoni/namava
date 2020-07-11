@@ -63,6 +63,7 @@ const FilterProvider = ({children}) => {
                     options: [],
                     caption: filterMenu['caption'],
                     selected: [],
+                    type: filterMenu['slug'] === 'sort' ? 'radio' : (filterMenu['slug'] === 'year' ? 'range-slider' : 'checkbox')
                 }
                 if(filterMenu['slug'] === "genre") {
                     genre = filterMenu['menuId'];
