@@ -14,17 +14,22 @@ const initializeState = {
     genre: false,
     done: false,
     active: false,
+    selectedTab: 0,
 }
 
 export const types = {
     "SET_LOADING": "SET_LOADING",
     "SET_FILTER_OPTIONS": "SET_FILTER_OPTIONS",
+    "SET_SELECTED_TAB": "SET_SELECTED_TAB",
 }
 
 const reducer = (state, action) => {
     switch (action.type) {
         case types.SET_LOADING:
             state = {...state, loading: true};
+            break;
+        case types.SET_SELECTED_TAB:
+            state = {...state, selectedTab: action.selectedTab};
             break;
         case types.SET_FILTER_OPTIONS:
             state = {...state};
@@ -86,6 +91,7 @@ const FilterProvider = ({children}) => {
             filters,
             done,
             genre,
+            selectedTab: filters['filtersId'][0],
         }
     });
 

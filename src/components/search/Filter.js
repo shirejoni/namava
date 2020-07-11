@@ -1,4 +1,5 @@
 import React from "react";
+import FilterBox from "./FilterBox";
 
 
 const Filter = () => {
@@ -17,6 +18,7 @@ const Filter = () => {
                     </svg>
                 </div>
             </div>
+            <FilterBox/>
         </div>
     )
 }
