@@ -13,9 +13,9 @@
 $ npm install
 $ cd namava_backend_reverse_proxy
 $ npm install
-// it will start reverse proxy backend in port 8080
+# it will start reverse proxy backend in port 8080
 $ npm start 
 $ cd ../
-// it will start react in port 3000
+# it will start react in port 3000
 $ npm start
 ```
