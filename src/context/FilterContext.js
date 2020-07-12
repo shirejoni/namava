@@ -1,7 +1,7 @@
 import React, {createContext, useContext, useEffect, useReducer} from "react";
 import {useMenus} from "./MenusContext";
 import {fetchData} from "../utils/functions";
-
+import {useLocation} from 'react-router-dom';
 const FilterContext = createContext(null);
 
 
@@ -31,7 +31,9 @@ const getQueryString = (state) => {
     state['filters']['filtersId'].forEach(filterId => {
         let param = [];
         state['filters'][filterId].selected.forEach(optionSelect => {
-            param.push(optionSelect['optionId']);
+            if(optionSelect['default'] !== true) {
+                param.push(optionSelect['optionId']);
+            }
         });
         if(param.length > 0) {
             params[state['filters'][filterId]['slug']] = param;
@@ -101,6 +103,7 @@ const reducer = (state, action) => {
 
 const FilterProvider = ({children}) => {
     let {state: menus} = useMenus();
+    let locaiton = useLocation();
     let [state, dispatch] = useReducer(reducer, initializeState, (init) => {
         let FilterMenu = menus['data'].find(menuItem => menuItem['slug'] === "FilterMenu");
 
@@ -109,16 +112,31 @@ const FilterProvider = ({children}) => {
         }
         let genre = null
         let done = true;
+        let params = new URLSearchParams(locaiton['search'].substr(1));
         if(FilterMenu) {
             let filtersMenu = menus['data'].filter(menuItem => menuItem['parentId'] === FilterMenu['menuId']);
             filtersMenu.forEach(filterMenu => {
                 filters.filtersId.push(filterMenu['menuId']);
+                let selected = [];
+                let values = params.get(filterMenu['slug']) ? params.get(filterMenu['slug']).split(',') : [];
+                if(values.length > 0) {
+                    selected = values.map(value => {
+                        let select =  {
+                            filterId: filterMenu['menuId'],
+                            optionId: value,
+                        }
+                        if(filterMenu['slug'] === "year") {
+                            select['caption'] = value;
+                        }
+                        return select;
+                    });
+                }
                 filters[filterMenu['menuId']] = {
                     filterId: filterMenu['menuId'],
                     slug: filterMenu['slug'],
                     options: [],
                     caption: filterMenu['caption'],
-                    selected: [],
+                    selected: selected,
                     type: filterMenu['slug'] === 'sort' ? 'radio' : (filterMenu['slug'] === 'year' ? 'range-slider' : 'checkbox')
                 }
                 if(filterMenu['slug'] === "genre") {
@@ -128,13 +146,19 @@ const FilterProvider = ({children}) => {
             menus['data'].forEach(menuItem => {
                 let filterId = filters['filtersId'].find(fId => fId == menuItem['parentId']);
                 if(filterId != null) {
-                    filters[filterId].options.push({
+                    let length = filters[filterId].options.push({
                         optionId: menuItem['menuId'],
                         slug: menuItem['slug'],
                         caption: menuItem['caption'],
                         entityType: menuItem['entityType'],
                         selected: false,
                     });
+                    let index = filters[filterId].selected.findIndex(({optionId}) => optionId == menuItem['menuId']);
+                    if(index !== -1) {
+                        filters[filterId].options[length - 1].selected = true;
+                        filters[filterId].selected[index].optionIndex = length -1;
+                        filters[filterId].selected[index].caption = menuItem['caption'];
+                    }
                 }
             });
 
@@ -143,6 +167,7 @@ const FilterProvider = ({children}) => {
         if(genre != null) {
             done = false;
         }
+        console.log(filters);
         return {
             ...init,
             filters,
@@ -169,11 +194,17 @@ const useFilter = () => {
     useEffect(() => {
         if(state['genre'] != null) {
             fetchData(state['genre'], "SearchDependency", (result) => {
+                let i = 0;
                 let options = result.map(option => {
+                    let index = state['filters'][state['genre']].selected.findIndex(({optionId}) => optionId == option);
+                    if(index !== -1) {
+                        state['filters'][state['genre']].selected[index].optionIndex = i;
+                        state['filters'][state['genre']].selected[index].caption = option;
+                    }
                     return {
                         optionId: option,
                         caption: option,
-                        selected: false,
+                        selected: index !== -1 ? true : false,
                     }
                 });
                 dispatch({
