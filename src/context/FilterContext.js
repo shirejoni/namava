@@ -111,6 +111,7 @@ const FilterProvider = ({children}) => {
             filtersId: [],
         }
         let genre = null
+        let sort = null
         let done = true;
         let params = new URLSearchParams(locaiton['search'].substr(1));
         if(FilterMenu) {
@@ -142,6 +143,9 @@ const FilterProvider = ({children}) => {
                 if(filterMenu['slug'] === "genre") {
                     genre = filterMenu['menuId'];
                 }
+                if(filterMenu['slug'] === "sort") {
+                    sort = filterMenu['menuId'];
+                }
             });
             menus['data'].forEach(menuItem => {
                 let filterId = filters['filtersId'].find(fId => fId == menuItem['parentId']);
@@ -167,7 +171,16 @@ const FilterProvider = ({children}) => {
         if(genre != null) {
             done = false;
         }
-        console.log(filters);
+        if(sort != null && filters[sort].selected.length === 0) {
+            filters[sort].selected.push({
+                filterId: sort,
+                optionId: filters[sort].options[0].optionId,
+                caption: filters[sort].options[0].caption,
+                optionIndex: 0,
+                default: true,
+            });
+            filters[sort].options[0].selected = true;
+        }
         return {
             ...init,
             filters,
@@ -184,7 +197,7 @@ const FilterProvider = ({children}) => {
     )
 }
 
-const useFilter = () => {
+const useFilter = (fetchGenre = false) => {
     let context = useContext(FilterContext);
     if(!context) {
         throw Error("useSlider should be use inside FilterProvider");
@@ -192,7 +205,7 @@ const useFilter = () => {
     let {state, dispatch} = context;
 
     useEffect(() => {
-        if(state['genre'] != null) {
+        if(state['genre'] != null && fetchGenre === true) {
             fetchData(state['genre'], "SearchDependency", (result) => {
                 let i = 0;
                 let options = result.map(option => {
