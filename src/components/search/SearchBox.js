@@ -2,7 +2,13 @@ import React, {useEffect, useState} from "react";
 import Filter from "./Filter";
 import {useFilter} from "../../context/FilterContext";
 import {useHistory, useLocation} from 'react-router-dom';
-import {searchCountriesFilter, searchGenereFilter, searchSortFilter, searchYearFilter} from "../../utils/functions";
+import {
+    searchCountriesFilter,
+    searchDubsSubtitlesFilter,
+    searchGenereFilter,
+    searchSortFilter,
+    searchYearFilter
+} from "../../utils/functions";
 
 const fetchSearchItems = (queryString, filter, term , onSearchItems) => {
     let urlSearchParams = new URLSearchParams(queryString);
@@ -11,6 +17,7 @@ const fetchSearchItems = (queryString, filter, term , onSearchItems) => {
     params = {...params, ...searchGenereFilter(urlSearchParams, filter)}
     params = {...params, ...searchYearFilter(urlSearchParams, filter)}
     params = {...params, ...searchSortFilter(urlSearchParams, filter)}
+    params = {...params, ...searchDubsSubtitlesFilter(urlSearchParams, filter)}
 
     console.log("fetchSearchItems", urlSearchParams, params);
 };

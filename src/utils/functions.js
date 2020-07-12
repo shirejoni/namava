@@ -227,3 +227,52 @@ export const searchSortFilter = (params, filters) => {
         searchOrderType: sort,
     }
 }
+
+export const searchDubsSubtitlesFilter = (params, filters) => {
+    let entityTypes = {
+        "FilterItemDubbed": "dubs",
+        "FilterItemVoice": "language",
+        "FilterItemSubtitle": "subtitle",
+        "FilterItemVoiceForDeaf": "forIndistinct",
+    }
+    let searchFilters = {
+        dubs: undefined,
+        subtitle: undefined,
+        language: undefined,
+        forIndistinct: undefined,
+    }
+    let optionsId = params.get('cognition') ? params.get('cognition').split(',') : [];
+    let cognitionFilter;
+    for(let key in filters) {
+        if(filters[key]['slug'] === "cognition") {
+            cognitionFilter = filters[key];
+            break;
+        }
+    }
+    if(cognitionFilter) {
+        optionsId.forEach(optionId => {
+            let option = cognitionFilter.options.find(filterOption => filterOption['optionId'] == optionId);
+            if(option && option['slug'] && option['entityType']) {
+                if(searchFilters[entityTypes[option['entityType']]] === undefined) {
+                    searchFilters[entityTypes[option['entityType']]] = [option['slug']];
+                }else {
+                    searchFilters[entityTypes[option['entityType']]].push(option['slug']);
+                }
+            }
+        });
+    }
+
+    for(let key in searchFilters) {
+        if(searchFilters[key] !== undefined) {
+            searchFilters[key] = searchFilters[key].join(',');
+        }
+    }
+
+    if(searchFilters["forIndistinct"] !== undefined) {
+        searchFilters["forIndistinct"] = true;
+    }
+
+
+
+    return searchFilters;
+}
