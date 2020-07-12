@@ -47,8 +47,19 @@ const FilterOptions = ({dispatch, filter}) => {
 
     return <div className="options-container">
         {filter['type'] === 'range-slider' ? (() => {
+            let [min, max] = domain;
+            if(filter['selected'].length > 0 ) {
+                [min, max] = filter['selected'][0]['optionId'].split('-');
+            }
 
-            return <RangeSlider domain={domain} onChange={() => {
+            return <RangeSlider domain={domain} min={min} max={max} onChange={([min, max]) => {
+                dispatch({
+                    type: types.SELECT_OPTION,
+                    filterId: filter['filterId'],
+                    optionId: `${Math.floor(min)}-${Math.floor(max)}`,
+                    optionCaption: `${Math.floor(min)}-${Math.floor(max)}`,
+                    filterType: 'radio'
+                });
             }}/>
         })() : options}
     </div>

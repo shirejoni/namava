@@ -1,18 +1,25 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Slider, Rail, Handles, Tracks} from 'react-compound-slider';
 import './RangeSlider.scss';
 
-const RangeSlider = ({onChange, domain: [min, max]}) => {
+const RangeSlider = ({onChange, domain, min, max}) => {
     let [state, setState] = useState({
         min,
         max
     })
 
-
+    useEffect(() => {
+        if(min !== state['min'] || max !== state['max']) {
+            setState({
+                min,
+                max
+            });
+        }
+    }, [min, max]);
     return (
         <div className="range-slider">
             <Slider
-                domain={[min, max]}
+                domain={domain}
                 values={[state['min'], state['max']]}
                 onUpdate={([min, max]) => {
                     setState({min: Math.floor(min), max: Math.floor(max)});
