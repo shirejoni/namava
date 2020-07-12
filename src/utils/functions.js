@@ -152,3 +152,27 @@ export  function getMediaDetailText(caption, items, maxLength, keyType, separato
         </div>
     )
 }
+
+export const searchCountriesFilter = (params, filters) => {
+    let countries = [];
+    let optionsId = params.get('country') ? params.get('country').split(',') : [];
+    let countryFilter;
+    for(let key in filters) {
+        if(filters[key]['slug'] === "country") {
+            countryFilter = filters[key];
+            break;
+        }
+    }
+    if(countryFilter) {
+        optionsId.forEach(optionId => {
+            let option = countryFilter.options.find(filterOption => filterOption['optionId'] == optionId);
+            if(option && option['slug']) {
+                countries.push(option['slug']);
+            }
+        });
+    }
+
+    return {
+        CountryProducer: countries.length > 0 ? countries.join(',') : undefined,
+    }
+}

@@ -2,8 +2,17 @@ import React, {useEffect, useState} from "react";
 import Filter from "./Filter";
 import {useFilter} from "../../context/FilterContext";
 import {useHistory, useLocation} from 'react-router-dom';
+import {searchCountriesFilter} from "../../utils/functions";
 
-const SearchBox = () => {
+const fetchSearchItems = (queryString, filter, term , onSearchItems) => {
+    let urlSearchParams = new URLSearchParams(queryString);
+    let params = {};
+    params = {...params, ...searchCountriesFilter(urlSearchParams, filter)}
+
+    console.log("fetchSearchItems", urlSearchParams, params);
+};
+
+const SearchBox = ({onSearchItems}) => {
 
     let {state, dispatch} = useFilter(true);
     let location = useLocation();
@@ -18,6 +27,7 @@ const SearchBox = () => {
             pathname: "/search",
             search: queryString,
         });
+        fetchSearchItems(queryString, state['filters'], term, onSearchItems);
     };
 
     useEffect(() => {
