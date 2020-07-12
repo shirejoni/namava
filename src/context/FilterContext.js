@@ -21,6 +21,8 @@ export const types = {
     "SET_LOADING": "SET_LOADING",
     "SET_FILTER_OPTIONS": "SET_FILTER_OPTIONS",
     "SET_SELECTED_TAB": "SET_SELECTED_TAB",
+    "SELECT_OPTION": "SELECT_OPTION",
+    "DESELECT_OPTION": "DESELECT_OPTION",
 }
 
 const reducer = (state, action) => {
@@ -35,6 +37,33 @@ const reducer = (state, action) => {
             state = {...state};
             state['filters'][action.filterId].options = action.options;
             state.done = action.done !== undefined ? action.done : state['done'];
+            break;
+        case types.SELECT_OPTION:
+            state = {...state};
+            if(action.filterType === "radio") {
+                state['filters'][action.filterId].selected = [];
+                state['filters'][action.filterId].options =  state['filters'][action.filterId].options.map(option => ({...option, selected : false}));
+            }
+            if(action.optionIndex !== undefined) {
+                state['filters'][action.filterId].options[action.optionIndex].selected = true;
+            }
+            let index = state['filters'][action.filterId].selected.findIndex(optionSelect => optionSelect['optionId'] === action.optionId);
+            if(index === -1) {
+                state['filters'][action.filterId].selected.push({
+                    optionId: action.optionId,
+                    filterId: action.filterId,
+                    optionIndex: action.optionIndex,
+                    caption: action.optionCaption,
+                    default: action.filterType === "radio" && action.optionIndex === 0 ? true : false,
+                });
+            }
+            break;
+        case types.DESELECT_OPTION:
+            state = {...state};
+            if(action.optionIndex !== undefined && state['filters'][action.filterId].options[action.optionIndex]) {
+                state['filters'][action.filterId].options[action.optionIndex].selected = false;
+            }
+            state['filters'][action.filterId].selected = state['filters'][action.filterId].selected.filter(optionSelect => optionSelect['optionId'] !== action.optionId);
             break;
         default:
             throw Error(`An unknown Action to Filter Reducer ${action.type}`);

@@ -121,7 +121,7 @@ const getOptionItemIcon = (checked, type = 'checkbox') => {
 
 const OptionItem = ({option, onClick, type}) => {
     return <div className="option-item">
-        <div className="option-item-icon-container">
+        <div onClick={onClick} className="option-item-icon-container">
             {getOptionItemIcon(option['selected'], type)}
         </div>
         <span>{option['caption']}</span>
