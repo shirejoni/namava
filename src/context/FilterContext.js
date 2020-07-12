@@ -64,6 +64,16 @@ const reducer = (state, action) => {
                 state['filters'][action.filterId].options[action.optionIndex].selected = false;
             }
             state['filters'][action.filterId].selected = state['filters'][action.filterId].selected.filter(optionSelect => optionSelect['optionId'] !== action.optionId);
+            if(state['filters'][action.filterId]['type'] === "radio" && state['filters'][action.filterId].selected.length === 0) {
+                state['filters'][action.filterId].selected.push({
+                    optionId: state['filters'][action.filterId].options[0].optionId,
+                    filterId: state['filters'][action.filterId].options[0].filterId,
+                    optionIndex: 0,
+                    caption: state['filters'][action.filterId].options[0].caption,
+                    default: true,
+                });
+                state['filters'][action.filterId].options[0].selected = true;
+            }
             break;
         default:
             throw Error(`An unknown Action to Filter Reducer ${action.type}`);

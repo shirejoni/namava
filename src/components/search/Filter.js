@@ -1,8 +1,33 @@
 import React from "react";
 import FilterBox from "./FilterBox";
+import {types, useFilter} from "../../context/FilterContext";
 
 
 const Filter = () => {
+    let {state, dispatch} = useFilter();
+    let filterItems = [];
+    state['filters'].filtersId.forEach(filterId => {
+        state['filters'][filterId].selected.forEach(optionSelect => {
+            if(optionSelect['default'] !== true) {
+                filterItems.push(<div key={`filter-item-${optionSelect['optionId']}`} className="filtered-button" onClick={() => {
+                    dispatch({
+                        type: types.DESELECT_OPTION,
+                        optionId: optionSelect['optionId'],
+                        filterId: optionSelect['filterId'],
+                        optionIndex: optionSelect['optionIndex']
+                    });
+                }}>
+                <span>
+                    {optionSelect['caption']}
+                </span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                        <path className="svg-c1"
+                              d="M16.4 14.85l-4.488-4.488L16.4 5.874a1.1 1.1 0 0 0 0-1.552 1.1 1.1 0 0 0-1.552 0L10.36 8.8 5.873 4.322a1.1 1.1 0 0 0-1.552 0 1.1 1.1 0 0 0 0 1.552l4.488 4.488L4.32 14.85a1.1 1.1 0 0 0 0 1.552 1.1 1.1 0 0 0 1.552 0l4.488-4.488 4.488 4.488a1.1 1.1 0 0 0 1.552 0 1.1 1.1 0 0 0 0-1.552z"></path>
+                    </svg>
+                </div>);
+            }
+        })
+    });
 
     return (
         <div className="search-filter-box">
@@ -17,6 +42,7 @@ const Filter = () => {
                         </g>
                     </svg>
                 </div>
+                {filterItems}
             </div>
             <FilterBox/>
         </div>
