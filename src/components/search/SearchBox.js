@@ -3,6 +3,7 @@ import Filter from "./Filter";
 import {useFilter} from "../../context/FilterContext";
 import {useHistory, useLocation} from 'react-router-dom';
 import {
+    fetchData,
     searchCountriesFilter,
     searchDubsSubtitlesFilter,
     searchGenereFilter,
@@ -10,7 +11,8 @@ import {
     searchYearFilter
 } from "../../utils/functions";
 
-const fetchSearchItems = (queryString, filter, term , onSearchItems) => {
+let fetchDataHandler;
+const fetchSearchItems = (queryString, filter, term, onSearchItems) => {
     let urlSearchParams = new URLSearchParams(queryString);
     let params = {};
     params = {...params, ...searchCountriesFilter(urlSearchParams, filter)}
@@ -18,8 +20,31 @@ const fetchSearchItems = (queryString, filter, term , onSearchItems) => {
     params = {...params, ...searchYearFilter(urlSearchParams, filter)}
     params = {...params, ...searchSortFilter(urlSearchParams, filter)}
     params = {...params, ...searchDubsSubtitlesFilter(urlSearchParams, filter)}
-
-    console.log("fetchSearchItems", urlSearchParams, params);
+    if (term !== "") {
+        params['query'] = term;
+    }
+    if(fetchDataHandler != undefined) {
+        clearTimeout(fetchDataHandler);
+    }
+    fetchDataHandler = setTimeout(() => {
+        fetchData(0, "SearchAdvanced", (result) => {
+            if(result != null) {
+                onSearchItems({
+                    items: result['result_items'][0]['items'],
+                    loading: false,
+                    error: false,
+                    options: params,
+                    page: result['page'],
+                    total: result['total'],
+                })
+            }
+        }, () => {
+        }, (isLoading) => {
+            if(isLoading) {
+                onSearchItems(state => ({...state, loading: true}));
+            }
+        }, params)
+    }, 1500);
 };
 
 const SearchBox = ({onSearchItems}) => {
@@ -30,7 +55,7 @@ const SearchBox = ({onSearchItems}) => {
     let [term, setTerm] = useState(params.get('query') || "");
     let history = useHistory();
     const onQueryStringChange = (queryString) => {
-        if(term !== "") {
+        if (term !== "") {
             queryString = `term=${term}${queryString !== "" ? "&" + queryString : ""}`;
         }
         history.push({
@@ -41,7 +66,7 @@ const SearchBox = ({onSearchItems}) => {
     };
 
     useEffect(() => {
-        if(state['done'] === true) {
+        if (state['done'] === true) {
             onQueryStringChange(state['queryString']);
         }
     }, [state['queryString'], term]);
@@ -60,7 +85,8 @@ const SearchBox = ({onSearchItems}) => {
                     <path className="svg-c1"
                           d="M23.175 7.15a9.78 9.78 0 0 0-7.108-3.394q-.17-.006-.342-.006a9.9 9.9 0 0 0-6.979 2.883 9.85 9.85 0 0 0-1.483 12.046 1.84 1.84 0 0 1-.264 2.252l-3.68 3.68a1.1 1.1 0 0 0-.317.79.94.94 0 0 0 .288.68c.394.353.992.344 1.375-.02l3.73-3.732c.587-.595 1.505-.712 2.223-.283 1.54.93 3.303 1.42 5.1 1.418a9.88 9.88 0 0 0 7.418-3.358c3.24-3.706 3.256-9.23.04-12.956zm-1.44 11.56a7.89 7.89 0 0 1-12.022.002c-2.48-2.95-2.48-7.258 0-10.21a7.89 7.89 0 0 1 12.025-.001c2.48 2.952 2.477 7.258-.003 10.208z"></path>
                 </svg>
-                <input type="text" value={term} onChange={(e) => setTerm(e.target.value)} placeholder="فیلم، سریال، بازیگر و ژانر"/>
+                <input type="text" value={term} onChange={(e) => setTerm(e.target.value)}
+                       placeholder="فیلم، سریال، بازیگر و ژانر"/>
             </div>
         </div>
         <Filter/>
