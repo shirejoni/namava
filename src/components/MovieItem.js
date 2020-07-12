@@ -5,7 +5,7 @@ import {ImageRealLazyLoad} from 'real-react-lazyload';
 import Config from "../config";
 
 const getCaption = (info) => {
-    let caption = info['caption'] || info['seriesCaption'];
+    let caption = info['caption'] || info['seriesCaption'] || info['name'];
     if(info['episodCaption']) {
         let parts = info['episodCaption'].split('-');
         caption = <React.Fragment>
@@ -41,7 +41,7 @@ const MovieItem = ({className, item, placeholder = false, togglePreview}) => {
         }}>
             <div className="item-image" onMouseOver={onHoverItem}>
                 {placeholder === false && (
-                    <ImageRealLazyLoad src={getNamavaUrl(item['imageUrl'] || item['seriesImageUrl'])}
+                    <ImageRealLazyLoad src={item['image_url'] || getNamavaUrl(item['imageUrl'] || item['seriesImageUrl'])}
                                        alt={item['caption']}/>
                 )}
                 {info && (
