@@ -2,6 +2,9 @@ import namava from "./namava";
 import Config from "../config";
 import MovieItem from "../components/MovieItem";
 import ExclusiveDubItem from "../components/ExclusiveDubItem";
+import momentj from 'moment-jalaali';
+import 'moment-timezone';
+import fa from 'moment/dist/locale/fa';
 import React from "react";
 
 export function getItemUrl(item, itemType = false) {
@@ -174,5 +177,53 @@ export const searchCountriesFilter = (params, filters) => {
 
     return {
         CountryProducer: countries.length > 0 ? countries.join(',') : undefined,
+    }
+}
+
+export const searchGenereFilter = (params, filters) => {
+    let optionsId = params.get('genre') || undefined;
+    return {
+        subcategories: optionsId
+    }
+}
+
+
+export const searchYearFilter = (params, filters) => {
+    let year = params.get('year') || undefined;
+    let startYear, endYear;
+    if(year) {
+        let parts = year.split('-');
+        momentj.locale("fa", fa);
+        momentj.loadPersian({
+            usePersianDigits: false ,
+        });
+        startYear = new momentj(parts[0]).tz("Asia/Tehran").locale('fa').format("jYYYY");
+        endYear = new momentj(parts[1]).tz("Asia/Tehran").locale('fa').format("jYYYY");
+    }
+
+    return {
+        ADProductionYear: year,
+        PersianProductionYear: (startYear && endYear) ? `${startYear}-${endYear}` : undefined,
+    }
+}
+
+export const searchSortFilter = (params, filters) => {
+    let sort = params.get('sort') ? params.get('sort') : undefined;
+    if(sort) {
+       let sortFilter;
+       for(let key in filters) {
+           if(filters[key]['slug'] === "sort") {
+               sortFilter = filters[key];
+               break;
+           }
+       }
+        if(sortFilter && sortFilter.selected.length > 0) {
+            sort = sortFilter.options[sortFilter.selected[0].optionIndex].slug;
+        }
+    }
+
+
+    return {
+        searchOrderType: sort,
     }
 }
