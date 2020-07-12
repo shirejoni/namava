@@ -32,7 +32,9 @@ const Filter = () => {
     return (
         <div className="search-filter-box">
             <div className="filtered-buttons-row">
-                <div className="toggle-filter-button">
+                <div className="toggle-filter-button" onClick={() => {
+                    dispatch({type: types.TOGGLE_FILTER_BOX});
+                }}>
                     <span>فیلتر</span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="12.393" height="7.627" viewBox="0 0 12.393 7.627"
                          className="t-chevron-0-1-232">
@@ -43,8 +45,15 @@ const Filter = () => {
                     </svg>
                 </div>
                 {filterItems}
+                <div className="clear-filtered" onClick={() => {
+                    dispatch({type: types.CLEAR_ALL});
+                }}>
+                    <span>حذف همه فیلتر ها</span>
+                </div>
             </div>
-            <FilterBox/>
+            {state['active'] === true && (
+                <FilterBox/>
+            )}
         </div>
     )
 }

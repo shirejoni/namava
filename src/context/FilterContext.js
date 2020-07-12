@@ -24,6 +24,8 @@ export const types = {
     "SET_SELECTED_TAB": "SET_SELECTED_TAB",
     "SELECT_OPTION": "SELECT_OPTION",
     "DESELECT_OPTION": "DESELECT_OPTION",
+    "TOGGLE_FILTER_BOX": "TOGGLE_FILTER_BOX",
+    "CLEAR_ALL": "CLEAR_ALL",
 }
 
 const getQueryString = (state) => {
@@ -48,6 +50,9 @@ const reducer = (state, action) => {
     switch (action.type) {
         case types.SET_LOADING:
             state = {...state, loading: true};
+            break;
+        case types.TOGGLE_FILTER_BOX:
+            state = {...state, active: !state['active']};
             break;
         case types.SET_SELECTED_TAB:
             state = {...state, selectedTab: action.selectedTab};
@@ -76,6 +81,28 @@ const reducer = (state, action) => {
                     default: action.filterType === "radio" && action.optionIndex === 0 ? true : false,
                 });
             }
+            break;
+        case types.CLEAR_ALL:
+            state = {...state};
+            state['filters']['filtersId'].forEach(filterId => {
+                state['filters'][filterId].selected = state['filters'][filterId].selected.filter(optionSelect => {
+                    if(optionSelect['optionIndex'] !== undefined) {
+                        state['filters'][filterId].options[optionSelect['optionIndex']].selected = false;
+                    }
+                    return false;
+                });
+                if(state['filters'][filterId]['type'] === "radio" && state['filters'][filterId].selected.length === 0) {
+                    state['filters'][filterId].selected.push({
+                        optionId: state['filters'][filterId].options[0].optionId,
+                        filterId: state['filters'][filterId].options[0].filterId,
+                        optionIndex: 0,
+                        caption: state['filters'][filterId].options[0].caption,
+                        default: true,
+                    });
+                    state['filters'][filterId].options[0].selected = true;
+                }
+            });
+
             break;
         case types.DESELECT_OPTION:
             state = {...state};
