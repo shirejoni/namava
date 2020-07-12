@@ -14,6 +14,7 @@ const initializeState = {
     genre: false,
     done: false,
     active: false,
+    queryString: "",
     selectedTab: 0,
 }
 
@@ -24,6 +25,22 @@ export const types = {
     "SELECT_OPTION": "SELECT_OPTION",
     "DESELECT_OPTION": "DESELECT_OPTION",
 }
+
+const getQueryString = (state) => {
+    let params = {};
+    state['filters']['filtersId'].forEach(filterId => {
+        let param = [];
+        state['filters'][filterId].selected.forEach(optionSelect => {
+            param.push(optionSelect['optionId']);
+        });
+        if(param.length > 0) {
+            params[state['filters'][filterId]['slug']] = param;
+        }
+    });
+
+    return Object.keys(params).map(key => key + "=" + params[key].join(',')).join('&');
+}
+
 
 const reducer = (state, action) => {
     switch (action.type) {
@@ -78,7 +95,7 @@ const reducer = (state, action) => {
         default:
             throw Error(`An unknown Action to Filter Reducer ${action.type}`);
     }
-
+    state['queryString'] = getQueryString(state);
     return state;
 };
 

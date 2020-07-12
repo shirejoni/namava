@@ -1,13 +1,24 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Filter from "./Filter";
 import {useFilter} from "../../context/FilterContext";
-
+import {useHistory} from 'react-router-dom';
 
 const SearchBox = () => {
 
     let {state, dispatch} = useFilter();
+    let history = useHistory();
+    const onQueryStringChange = (queryString) => {
+        history.push({
+            pathname: "/search",
+            search: queryString,
+        });
+    };
 
-    console.log("SearchBox", state);
+    useEffect(() => {
+        if(state['done'] === true) {
+            onQueryStringChange(state['queryString']);
+        }
+    }, [state['queryString']])
     return <React.Fragment>
         <div className="col-12 search-form-container">
             <div className="leave-search">
