@@ -1,68 +1,36 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<div dir="rtl">
 
-## Available Scripts
+## پروژه سایت نماوا با React
 
-In the project directory, you can run:
+این پروژه برای [دوره ی آموزش React.js](https://www.daneshjooyar.com/%d8%af%d9%88%d8%b1%d9%87-%d8%a2%d9%85%d9%88%d8%b2%d8%b4-react-js/) دانشجویار نوشته شده است و درون این آموزش به صورت کامل پیاده سازی می شود شما می توانید به سورس کد پروژه به صورت رایگان و متن باز می تونید از طریق این ریپازیتور دسترسی داشته باشید 
+  
+## نصب و راه اندازی
+برای راه اندازی پروژه نسخه بکندی که نوشته شده است را در ابتدا راه اندازی کنید توجه کنید که این بکند فقط کار Reverse Proxy را انجام خواهد داد و هر درخواستی به ان به سایت نماوا هدایت خواهد شد ولی برای جلوگیری CORS لازم هست که استفاده شود.
 
-### `npm start`
+</div>
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```bash
+$ npm install
+$ cd namava_backend_reverse_proxy
+$ npm install
+# it will start reverse proxy backend in port 8080
+$ npm start 
+$ cd ../
+# it will start react in port 3000
+$ npm start
+```
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+<div dir="rtl">
 
-### `npm test`
+##  لینک دموی پروژه
+[مشاده دمو](https://www.aparat.com/v/balgK)
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![](https://i.ibb.co/rmXjG3R/01.jpg)
+![](https://i.ibb.co/BsVBkBw/02.jpg)
+![](https://i.ibb.co/0sRsq92/03.jpg)
+![](https://i.ibb.co/wJprf6z/04.jpg)
+![](https://i.ibb.co/k9yPDwr/05.jpg)
+![](https://i.ibb.co/Ns8N9ty/06.jpg)
+![](https://i.ibb.co/ZGN7Gr2/07.jpg)
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+</div>
