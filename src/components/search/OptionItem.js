@@ -5,7 +5,7 @@ const getOptionItemIcon = (checked, type = 'checkbox') => {
     switch (type) {
         case "checkbox":
             return checked !== true ? (
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200"
+                <svg data-testid="checkbox-unchecked" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200"
                      preserveAspectRatio="xMidYMid slice"
                      style={{width: "100%", height: "100%", transform: "translate3d(0px, 0px, 0px)"}}>
                     <defs>
@@ -35,7 +35,7 @@ const getOptionItemIcon = (checked, type = 'checkbox') => {
                     </g>
                 </svg>
             ) : (
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200"
+                <svg data-testid="checkbox-checked" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200"
                      preserveAspectRatio="xMidYMid slice"
                      style={{width: "100%", height: "100%", transform: "translate3d(0px, 0px, 0px)"}}>
                     <defs>
@@ -69,7 +69,7 @@ const getOptionItemIcon = (checked, type = 'checkbox') => {
             break;
         case "radio":
             return checked !== true ? (
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 201 201" width="201" height="201"
+                <svg data-testid="radio-unchecked" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 201 201" width="201" height="201"
                      preserveAspectRatio="xMidYMid slice"
                      style={{width: "100%", height: "100%", transform: "translate3d(0px, 0px, 0px)"}}>
                     <defs>
@@ -92,7 +92,7 @@ const getOptionItemIcon = (checked, type = 'checkbox') => {
                     </g>
                 </svg>
             ) : (
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 201 201" width="201" height="201"
+                <svg data-testid="radio-checked" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 201 201" width="201" height="201"
                      preserveAspectRatio="xMidYMid slice"
                      style={{width: "100%", height: "100%", transform: "translate3d(0px, 0px, 0px)"}}>
                     <defs>
