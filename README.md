@@ -1,4 +1,4 @@
-byHeX<div dir="rtl">
+<div dir="rtl">
 
 ## پروژه سایت نماوا با React
 
