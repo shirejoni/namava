@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.css": "/static/css/main.9a6ba5ab.chunk.css",
-    "main.js": "/static/js/main.e7a3ec87.chunk.js",
-    "main.js.map": "/static/js/main.e7a3ec87.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.6d9e68e3.js",
-    "runtime-main.js.map": "/static/js/runtime-main.6d9e68e3.js.map",
-    "static/css/2.6f9314a4.chunk.css": "/static/css/2.6f9314a4.chunk.css",
-    "static/js/2.61752139.chunk.js": "/static/js/2.61752139.chunk.js",
-    "static/js/2.61752139.chunk.js.map": "/static/js/2.61752139.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.fda405fa96aecd052b49c3fa2495e0d4.js": "/precache-manifest.fda405fa96aecd052b49c3fa2495e0d4.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/2.6f9314a4.chunk.css.map": "/static/css/2.6f9314a4.chunk.css.map",
-    "static/css/main.9a6ba5ab.chunk.css.map": "/static/css/main.9a6ba5ab.chunk.css.map",
-    "static/js/2.61752139.chunk.js.LICENSE.txt": "/static/js/2.61752139.chunk.js.LICENSE.txt"
+    "main.css": "/namava/static/css/main.9a6ba5ab.chunk.css",
+    "main.js": "/namava/static/js/main.e7a3ec87.chunk.js",
+    "main.js.map": "/namava/static/js/main.e7a3ec87.chunk.js.map",
+    "runtime-main.js": "/namava/static/js/runtime-main.31199638.js",
+    "runtime-main.js.map": "/namava/static/js/runtime-main.31199638.js.map",
+    "static/css/2.6f9314a4.chunk.css": "/namava/static/css/2.6f9314a4.chunk.css",
+    "static/js/2.a4ba1491.chunk.js": "/namava/static/js/2.a4ba1491.chunk.js",
+    "static/js/2.a4ba1491.chunk.js.map": "/namava/static/js/2.a4ba1491.chunk.js.map",
+    "index.html": "/namava/index.html",
+    "precache-manifest.b57751ac962103cb0472a39c6ce3f046.js": "/namava/precache-manifest.b57751ac962103cb0472a39c6ce3f046.js",
+    "service-worker.js": "/namava/service-worker.js",
+    "static/css/2.6f9314a4.chunk.css.map": "/namava/static/css/2.6f9314a4.chunk.css.map",
+    "static/css/main.9a6ba5ab.chunk.css.map": "/namava/static/css/main.9a6ba5ab.chunk.css.map",
+    "static/js/2.a4ba1491.chunk.js.LICENSE.txt": "/namava/static/js/2.a4ba1491.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.6d9e68e3.js",
+    "static/js/runtime-main.31199638.js",
     "static/css/2.6f9314a4.chunk.css",
-    "static/js/2.61752139.chunk.js",
+    "static/js/2.a4ba1491.chunk.js",
     "static/css/main.9a6ba5ab.chunk.css",
     "static/js/main.e7a3ec87.chunk.js"
   ]
