@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "ced423452b1e8e3fd9dc0ffb5f3eb51c",
+    "revision": "fe87a2f6d091cf1c1231999bf401d0ac",
     "url": "/namava/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/namava/static/css/2.6f9314a4.chunk.css"
   },
   {
-    "revision": "ee0f7bf290d1891b3ba1",
+    "revision": "9688e7f9f227233b4b9d",
     "url": "/namava/static/css/main.9a6ba5ab.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/namava/static/js/2.22b7ca59.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "ee0f7bf290d1891b3ba1",
-    "url": "/namava/static/js/main.bacb8a43.chunk.js"
+    "revision": "9688e7f9f227233b4b9d",
+    "url": "/namava/static/js/main.c571b205.chunk.js"
   },
   {
     "revision": "6c151cc25bd5a010d781",

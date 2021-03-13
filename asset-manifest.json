@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/namava/static/css/main.9a6ba5ab.chunk.css",
-    "main.js": "/namava/static/js/main.bacb8a43.chunk.js",
-    "main.js.map": "/namava/static/js/main.bacb8a43.chunk.js.map",
+    "main.js": "/namava/static/js/main.c571b205.chunk.js",
+    "main.js.map": "/namava/static/js/main.c571b205.chunk.js.map",
     "runtime-main.js": "/namava/static/js/runtime-main.31199638.js",
     "runtime-main.js.map": "/namava/static/js/runtime-main.31199638.js.map",
     "static/css/2.6f9314a4.chunk.css": "/namava/static/css/2.6f9314a4.chunk.css",
     "static/js/2.22b7ca59.chunk.js": "/namava/static/js/2.22b7ca59.chunk.js",
     "static/js/2.22b7ca59.chunk.js.map": "/namava/static/js/2.22b7ca59.chunk.js.map",
     "index.html": "/namava/index.html",
-    "precache-manifest.f6a7c86e26fde06d519edfb20c408c60.js": "/namava/precache-manifest.f6a7c86e26fde06d519edfb20c408c60.js",
+    "precache-manifest.504dec7967eb2ebbea13187dc43c964f.js": "/namava/precache-manifest.504dec7967eb2ebbea13187dc43c964f.js",
     "service-worker.js": "/namava/service-worker.js",
     "static/css/2.6f9314a4.chunk.css.map": "/namava/static/css/2.6f9314a4.chunk.css.map",
     "static/css/main.9a6ba5ab.chunk.css.map": "/namava/static/css/main.9a6ba5ab.chunk.css.map",
@@ -20,6 +20,6 @@
     "static/css/2.6f9314a4.chunk.css",
     "static/js/2.22b7ca59.chunk.js",
     "static/css/main.9a6ba5ab.chunk.css",
-    "static/js/main.bacb8a43.chunk.js"
+    "static/js/main.c571b205.chunk.js"
   ]
 }
