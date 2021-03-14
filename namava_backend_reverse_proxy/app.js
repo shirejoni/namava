@@ -41,8 +41,15 @@ app.use(async (reg, res) => {
     headers: myHeaders,
     params: reg.query || {},
   });
-  res.json(response.data);
-});
+  try {
+    let response = await axios.get(`https://namava.ir/${reg.path}`, {
+      headers: myHeaders,
+      params: reg.query || {},
+    });
+    res.json(response.data);
+  }catch (error) {
+    res.json({succeeded: false, error: "Invalid"})
+  }});
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
