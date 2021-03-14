@@ -28,7 +28,7 @@ const MovieItem = ({className, item, placeholder = false, togglePreview}) => {
             return false;
         }
         if(info == null) {
-            fetchBriefData(item['id'] || item['episodId'], (result) => setInfo(result), () => {})
+            fetchBriefData(item['id'] || item['episodId'] || item['mediaId'], (result) => setInfo(result), () => {})
         }
     }
 
