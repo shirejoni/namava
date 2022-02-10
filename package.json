@@ -12,7 +12,7 @@
     "moment": "latest",
     "moment-jalaali": "latest",
     "moment-jalali": "^0.3.9",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
